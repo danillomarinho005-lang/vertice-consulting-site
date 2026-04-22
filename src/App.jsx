@@ -2,19 +2,21 @@
 import leanLogo from './assets/leanplanner360-logo.svg'
 import './App.css'
 
+const contactEmail = 'danillo@verticeconsulting.tec.br'
+const contactPhone = '(18) 99812-3101'
+const contactPhoneHref = 'tel:+5518998123101'
+const contactWhatsAppHref = 'https://wa.me/5518998123101'
+const siteUrl = 'https://www.verticeconsulting.tec.br'
+
 const navLinks = [
   { label: 'Visão Geral', href: '#visao-geral' },
   { label: 'Ecossistema', href: '#ecossistema' },
+  { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Telas', href: '#telas' },
   { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Mercados', href: '#mercados' },
   { label: 'Consultoria', href: '#consultoria' },
   { label: 'Contato', href: '#contato' }
-]
-
-const heroStats = [
-  { value: '18', label: 'sites operando Lean Planner 360' },
-  { value: '35%', label: 'redução média de horas improdutivas' },
-  { value: '15 dias', label: 'para colocar o método em operação' }
 ]
 
 const features = [
@@ -36,11 +38,11 @@ const features = [
 ]
 
 const platformChecklist = [
-  'Planejamento lookahead com versionamento automático',
-  'Checklists mobile e registro de impedimentos com fotos',
-  'Sprints semanais com reuniões guiadas e follow-up automático',
-  'KPIs e reports conectados ao Primavera P6 e ERPs',
-  'Segurança enterprise e governança multi-site'
+  'Planejamento lookahead conectado ao cronograma',
+  'Checklists para checar impedimentos antes da execução',
+  'Rotinas semanais para alinhar planejamento, campo e gestão',
+  'Indicadores para acompanhar avanço, riscos e restrições',
+  'Base preparada para projetos, usuários e acessos por cliente'
 ]
 
 const ecosystemItems = [
@@ -109,6 +111,48 @@ const consultingPillars = [
   }
 ]
 
+const howItWorks = [
+  {
+    title: 'Importar o cronograma',
+    text: 'O fluxo começa com XER, XML, CSV ou SQLite do Primavera P6 para estruturar projeto, WBS, atividades, datas e status.'
+  },
+  {
+    title: 'Checar impedimentos',
+    text: 'As equipes analisam materiais, desenhos, recursos, procedimentos e equipamentos antes da execução.'
+  },
+  {
+    title: 'Planejar o lookahead',
+    text: 'O board organiza semanas, responsáveis e pacotes de trabalho para dar clareza ao que precisa ser preparado.'
+  },
+  {
+    title: 'Acompanhar a execução',
+    text: 'A rotina registra observações, pendências, progresso e indicadores para apoiar decisões rápidas.'
+  }
+]
+
+const screenShots = [
+  {
+    src: '/screens/dashboard.png',
+    title: 'Dashboard executivo',
+    text: 'Indicadores para acompanhar atividades, impedimentos e evolução do planejamento.'
+  },
+  {
+    src: '/screens/board.png',
+    title: 'Board de atividades',
+    text: 'Visão por semana, WBS e responsáveis para orientar a preparação da execução.'
+  },
+  {
+    src: '/screens/integracao.png',
+    title: 'Integração Primavera P6',
+    text: 'Importação de XER, XML, CSV, JSON e SQLite para manter o cronograma estruturado.'
+  },
+  {
+    src: '/screens/checklist.png',
+    title: 'Checklist de restrições',
+    text: 'Verificação antecipada dos impedimentos que podem afetar a frente de trabalho.'
+  }
+]
+
 function App() {
   return (
     <div className="site">
@@ -144,8 +188,8 @@ function App() {
               para projetos industriais de alta complexidade.
             </h1>
             <p>
-              Lean Planner 360 conecta planejamento mestre, lookahead, execução diária e indicadores em tempo real para
-              garantir ritmo, previsibilidade e alinhamento entre engenharia, campo e gestão executiva.
+              Lean Planner 360 conecta planejamento mestre, lookahead, execução diária e indicadores para apoiar a
+              checagem antecipada de impedimentos, aumentar previsibilidade e alinhar engenharia, campo e gestão executiva.
             </p>
             <div className="hero-actions">
               <a className="btn btn-primary" href="#contato">
@@ -155,13 +199,15 @@ function App() {
                 Solicitar acesso
               </a>
             </div>
-            <div className="hero-stats">
-              {heroStats.map((item) => (
-                <article key={item.label}>
-                  <strong>{item.value}</strong>
-                  <p>{item.label}</p>
-                </article>
-              ))}
+            <div className="hero-notes">
+              <article>
+                <strong>Preparar antes de executar</strong>
+                <p>Foco em reduzir improvisos, antecipar restrições e proteger a rotina de produção.</p>
+              </article>
+              <article>
+                <strong>Consultoria + plataforma</strong>
+                <p>Método Lean, gestão ágil e tecnologia trabalhando no mesmo fluxo operacional.</p>
+              </article>
             </div>
           </div>
         </section>
@@ -194,6 +240,46 @@ function App() {
           </div>
         </section>
 
+        <section className="how-section" id="como-funciona">
+          <div className="section-header">
+            <p className="kicker">Como funciona</p>
+            <h2>Da programação Primavera à execução preparada.</h2>
+            <p className="lede">
+              O Lean Planner 360 organiza o cronograma em uma rotina prática para identificar restrições antes que elas cheguem ao campo.
+            </p>
+          </div>
+          <div className="how-grid">
+            {howItWorks.map((item, index) => (
+              <article key={item.title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="screens-section" id="telas">
+          <div className="section-header">
+            <p className="kicker">Telas reais</p>
+            <h2>Rotina visual para planejar, verificar e acompanhar.</h2>
+            <p className="lede">
+              Interfaces usadas para demonstrar o fluxo de planejamento, integração e checklist sem expor cronogramas confidenciais.
+            </p>
+          </div>
+          <div className="screens-grid">
+            {screenShots.map((screen) => (
+              <article key={screen.title} className="screen-card">
+                <img src={screen.src} alt={screen.title} />
+                <div>
+                  <h3>{screen.title}</h3>
+                  <p>{screen.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="cards-section" id="funcionalidades">
           {features.map((feature) => (
             <article key={feature.title} className="feature-card">
@@ -223,14 +309,15 @@ function App() {
               </ul>
             </div>
             <div className="platform-right" aria-label="Acesso ao sistema">
-              <div className="login-card">
-                <p className="login-title">Área exclusiva</p>
-                <p className="login-subtitle">Solicite acesso ou entre com seu usuário.</p>
-                <label htmlFor="login-user">Usuário ou e-mail</label>
-                <input id="login-user" type="text" placeholder="danillomarinho" />
-                <label htmlFor="login-pass">Senha</label>
-                <input id="login-pass" type="password" placeholder="••••••" />
-                <button className="login-button">Entrar</button>
+              <div className="access-card">
+                <p className="access-title">Acesso ao Lean Planner 360</p>
+                <p className="access-subtitle">
+                  Ambientes de teste e implantação são liberados por projeto, com usuários vinculados ao cliente responsável.
+                </p>
+                <a className="login-button" href="#contato">Solicitar demonstração</a>
+                <a className="access-link" href="https://www.leanplanner360.com.br" target="_blank" rel="noreferrer">
+                  Acessar plataforma
+                </a>
               </div>
             </div>
           </div>
@@ -253,7 +340,7 @@ function App() {
               <img src={verticeLogo} alt="Vértice Consulting" className="consulting-logo" />
               <div>
                 <h2>Vértice Consulting</h2>
-                <p>Consultoria estratégica aliada à plataforma Lean Planner 360 para entregar resultados mensuráveis.</p>
+                <p>Consultoria estratégica aliada à plataforma Lean Planner 360 para estruturar rotinas, indicadores e decisões de campo.</p>
               </div>
             </div>
             <div className="consulting-columns">
@@ -268,12 +355,37 @@ function App() {
         </section>
       </main>
 
-      <footer className="footer" id="contato">
+      <section className="contact-section" id="contato">
+        <div>
+          <p className="kicker">Contato</p>
+          <h2>Fale com a Vértice Consulting</h2>
+          <p>
+            Agende uma conversa para estruturar o planejamento Lean, a rotina de execução e a implantação do Lean Planner 360.
+          </p>
+        </div>
+        <div className="contact-actions" aria-label="Contatos oficiais">
+          <a className="contact-link primary" href={`mailto:${contactEmail}`}>
+            {contactEmail}
+          </a>
+          <a className="contact-link" href={contactPhoneHref}>
+            {contactPhone}
+          </a>
+          <a className="contact-link" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
+            WhatsApp
+          </a>
+          <a className="contact-link" href={siteUrl} target="_blank" rel="noreferrer">
+            verticeconsulting.tec.br
+          </a>
+        </div>
+      </section>
+
+      <footer className="footer">
         <div>© {new Date().getFullYear()} Vértice Consulting • Lean Planner 360</div>
         <div className="footer-links">
-          <a href="mailto:contato@verticeconsulting.com.br">contato@verticeconsulting.com.br</a>
-          <a href="https://www.verticeconsulting.com.br" target="_blank" rel="noreferrer">
-            verticeconsulting.com.br
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+          <a href={contactPhoneHref}>{contactPhone}</a>
+          <a href={siteUrl} target="_blank" rel="noreferrer">
+            verticeconsulting.tec.br
           </a>
         </div>
       </footer>
