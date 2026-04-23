@@ -264,7 +264,7 @@ function App() {
             <p className="kicker">Telas reais</p>
             <h2>Rotina visual para planejar, verificar e acompanhar.</h2>
             <p className="lede">
-              Interfaces usadas para demonstrar o fluxo de planejamento, integração e checklist sem expor cronogramas confidenciais.
+              Interfaces usadas para demonstrar o fluxo de planejamento, integração e checklist.
             </p>
           </div>
           <div className="screens-grid">
