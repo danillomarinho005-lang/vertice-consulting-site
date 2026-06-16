@@ -14,6 +14,7 @@ const navLinks = [
   { label: 'Como funciona', href: '#como-funciona' },
   { label: 'Telas', href: '#telas' },
   { label: 'Funcionalidades', href: '#funcionalidades' },
+  { label: 'Planos', href: '#planos' },
   { label: 'Mercados', href: '#mercados' },
   { label: 'Consultoria', href: '#consultoria' },
   { label: 'Contato', href: '#contato' }
@@ -23,12 +24,12 @@ const features = [
   {
     icon: '🛰️',
     title: 'Visibilidade contínua',
-    description: 'Sincronize Primavera P6, lookahead e execução diária num só painel com alertas inteligentes.'
+    description: 'Conecte Primavera P6, cronograma nativo, lookahead e execução diária num só painel com alertas inteligentes.'
   },
   {
     icon: '⚡',
-    title: 'Execução diária',
-    description: 'Checklists móveis, voz-para-texto e status claro das frentes para decisões em ritmo ágil.'
+    title: 'Prontidão de execução',
+    description: 'Checklists móveis, restrições, materiais e engenharia ligados ao plano para decidir com mais segurança antes da execução.'
   },
   {
     icon: '📊',
@@ -38,25 +39,26 @@ const features = [
 ]
 
 const platformChecklist = [
-  'Planejamento lookahead conectado ao cronograma',
+  'Planejamento lookahead conectado ao cronograma importado ou nativo',
   'Checklists para checar impedimentos antes da execução',
+  'Materiais e engenharia ligados diretamente à rotina de prontidão',
   'Rotinas semanais para alinhar planejamento, campo e gestão',
   'Indicadores para acompanhar avanço, riscos e restrições',
-  'Base preparada para projetos, usuários e acessos por cliente'
+  'Base preparada para projetos, usuários, acessos por cliente e integrações corporativas'
 ]
 
 const ecosystemItems = [
   {
     title: 'Planejamento e Controle',
-    text: 'Cronogramas executivos, curvas S, restrições, lookahead, gestão de avanço e apoio à decisão.'
+    text: 'Cronogramas executivos, curvas S, restrições, lookahead, gestão de avanço e apoio à decisão com planejamento importado ou criado do zero.'
   },
   {
     title: 'Integração Digital',
-    text: 'Conexão entre rotina de obra, gestão visual e sistemas corporativos para reduzir retrabalho.'
+    text: 'Conexão entre rotina de obra, gestão visual e sistemas corporativos, com possibilidade de integrações, SSO e conexão com outros bancos de dados.'
   },
   {
     title: 'Execução no Campo',
-    text: 'Ritmos curtos, organização de frentes e visibilidade de gargalos entre equipes multidisciplinares.'
+    text: 'Ritmos curtos, organização de frentes e visibilidade de gargalos entre equipes multidisciplinares com foco em prontidão antes da liberação do serviço.'
   },
   {
     title: 'Gestão Ágil de Produção',
@@ -111,22 +113,80 @@ const consultingPillars = [
   }
 ]
 
+const plans = [
+  {
+    name: 'Trial',
+    subtitle: 'Conheça a plataforma na prática.',
+    summary:
+      'Uma forma objetiva de validar o Lean Planner 360 em um ambiente controlado, com foco nos fluxos principais de planejamento, acompanhamento e prontidão de execução.',
+    includes: [
+      'Acesso inicial à plataforma',
+      'Visão do planejamento e acompanhamento',
+      'Registro de avanço, restrições e campo',
+      'Uso orientado para avaliação da solução'
+    ],
+    idealFor: 'Demonstrações, prova de conceito e validação inicial com equipe reduzida.'
+  },
+  {
+    name: 'Standard',
+    subtitle: 'Controle operacional do dia a dia.',
+    summary:
+      'Plano voltado para empresas que precisam organizar o planejamento, acompanhar a execução e conectar escritório e campo com mais clareza e menos dispersão.',
+    includes: [
+      'Planejamento e acompanhamento das atividades',
+      'RDO com fotos e histórico',
+      'Controle de materiais e engenharia',
+      'Dashboard operacional e experiência instalável'
+    ],
+    idealFor: 'Obras em operação, equipes de planejamento e produção e empresas que buscam sair do controle em planilhas.'
+  },
+  {
+    name: 'Pro',
+    subtitle: 'Gestão integrada com mais profundidade.',
+    summary:
+      'Plano pensado para operações que exigem mais visibilidade gerencial, maior capacidade de análise e integração entre planejamento, suprimentos, campo e liderança.',
+    includes: [
+      'Todos os recursos do Standard',
+      'Dashboard executivo',
+      'Curva S, recursos e visão financeira planejada',
+      'Gantt nativo com vínculos e caminho crítico',
+      'Uso mobile para avanço, restrições, fotos e acompanhamento'
+    ],
+    idealFor: 'Empresas com rotina intensa de planejamento, contratos com maior necessidade de controle e operações mais integradas.'
+  },
+  {
+    name: 'Enterprise',
+    subtitle: 'Implantação sob medida para operações mais complexas.',
+    summary:
+      'Estrutura indicada para empresas que precisam de aderência fina ao seu modelo de gestão, com personalização, implantação assistida e suporte consultivo.',
+    includes: [
+      'Todos os recursos do Pro',
+      'Estrutura multiempresa',
+      'Controle avançado de permissões',
+      'Onboarding e implantação assistida',
+      'Personalizações conforme a necessidade operacional',
+      'Suporte prioritário'
+    ],
+    idealFor: 'Grupos empresariais, múltiplos contratos, unidades e clientes com necessidade de adaptação ao processo interno.'
+  }
+]
+
 const howItWorks = [
   {
-    title: 'Importar o cronograma',
-    text: 'O fluxo começa com XER, XML, CSV ou SQLite do Primavera P6 para estruturar projeto, WBS, atividades, datas e status.'
+    title: 'Estruturar o planejamento',
+    text: 'O fluxo pode começar com XER, XML, CSV ou SQLite do Primavera P6, mas também permite criar um planejamento nativo completo do zero, com WBS, atividades, vínculos, datas e linha de base.'
   },
   {
-    title: 'Checar impedimentos',
-    text: 'As equipes analisam materiais, desenhos, recursos, procedimentos e equipamentos antes da execução.'
+    title: 'Checar a prontidão',
+    text: 'A rotina de prontidão conecta materiais, engenharia, recursos, procedimentos e equipamentos para verificar impedimentos antes que eles cheguem ao campo.'
   },
   {
-    title: 'Planejar o lookahead',
-    text: 'O board organiza semanas, responsáveis e pacotes de trabalho para dar clareza ao que precisa ser preparado.'
+    title: 'Conectar áreas e integrações',
+    text: 'A plataforma organiza o fluxo entre planejamento, suprimentos, engenharia e campo, e pode evoluir com integrações corporativas, SSO e conexão com outras bases de dados.'
   },
   {
-    title: 'Acompanhar a execução',
-    text: 'A rotina registra observações, pendências, progresso e indicadores para apoiar decisões rápidas.'
+    title: 'Executar e acompanhar',
+    text: 'O board organiza semanas, responsáveis e pacotes de trabalho, enquanto a execução registra observações, pendências, progresso e indicadores para apoiar decisões rápidas.'
   }
 ]
 
@@ -319,6 +379,58 @@ function App() {
                   Acessar plataforma
                 </a>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="plans-section" id="planos">
+          <div className="section-header">
+            <p className="kicker">Planos</p>
+            <h2>Uma estrutura comercial para cada estágio da operação.</h2>
+            <p className="lede">
+              O Lean Planner 360 pode começar com uma validação prática e evoluir até uma implantação mais ampla,
+              conectando planejamento, campo, prontidão e gestão executiva em uma única plataforma.
+            </p>
+          </div>
+          <div className="plans-grid">
+            {plans.map((plan) => (
+              <article key={plan.name} className="plan-card">
+                <div className="plan-head">
+                  <p className="plan-name">{plan.name}</p>
+                  <h3>{plan.subtitle}</h3>
+                </div>
+                <p className="plan-summary">{plan.summary}</p>
+                <div className="plan-block">
+                  <p className="plan-label">Inclui</p>
+                  <ul className="plan-list">
+                    {plan.includes.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="plan-block">
+                  <p className="plan-label">Ideal para</p>
+                  <p className="plan-ideal">{plan.idealFor}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="plans-cta">
+            <div>
+              <p className="kicker">Implantação comercial</p>
+              <h3>Escolha o modelo mais adequado para o momento da sua empresa.</h3>
+              <p>
+                A Vértice Consulting pode apoiar desde a demonstração inicial até implantações mais completas, com
+                personalização, treinamento e evolução contínua conforme a necessidade da operação.
+              </p>
+            </div>
+            <div className="plans-actions">
+              <a className="btn btn-primary" href="#contato">
+                Solicitar demonstração
+              </a>
+              <a className="btn btn-secondary" href="#contato">
+                Falar com a Vértice
+              </a>
             </div>
           </div>
         </section>
