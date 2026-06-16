@@ -24,17 +24,17 @@ const features = [
   {
     icon: '🛰️',
     title: 'Visibilidade contínua',
-    description: 'Conecte Primavera P6, cronograma nativo, lookahead e execução diária num só painel com alertas inteligentes.'
+    description: 'Conecte Primavera P6, cronograma nativo, lookahead e execução diária em uma única leitura operacional.'
   },
   {
     icon: '⚡',
     title: 'Prontidão de execução',
-    description: 'Checklists móveis, restrições, materiais e engenharia ligados ao plano para decidir com mais segurança antes da execução.'
+    description: 'Checklists móveis, restrições, materiais e engenharia ligados ao plano para decidir com mais segurança antes de liberar a execução.'
   },
   {
     icon: '📊',
     title: 'Indicadores acionáveis',
-    description: 'Dashboards OTP, PPC e riscos em tempo real conectados às rotinas de gestão.'
+    description: 'Dashboards OTP, PPC, riscos e avanço conectados às rotinas semanais de gestão.'
   }
 ]
 
@@ -54,7 +54,7 @@ const ecosystemItems = [
   },
   {
     title: 'Integração Digital',
-    text: 'Conexão entre rotina de obra, gestão visual e sistemas corporativos, com possibilidade de integrações, SSO e conexão com outros bancos de dados.'
+    text: 'Conexão entre rotina de obra, gestão visual e sistemas corporativos, com possibilidade de integrações, SSO e conexão com outras bases de dados.'
   },
   {
     title: 'Execução no Campo',
@@ -62,22 +62,22 @@ const ecosystemItems = [
   },
   {
     title: 'Gestão Ágil de Produção',
-    text: 'Sprints semanais, alinhamentos diários e ciclos curtos para aumentar previsibilidade e velocidade.'
+    text: 'Sprints semanais, alinhamentos diários e ciclos curtos para aumentar previsibilidade, cadência e velocidade de resposta.'
   }
 ]
 
 const differentials = [
   {
     title: 'Visão integrada',
-    text: 'Visão integrada entre consultoria, planejamento e software.'
+    text: 'Consultoria, planejamento e software trabalhando na mesma lógica operacional.'
   },
   {
     title: 'Projetos complexos',
-    text: 'Foco em projetos industriais de alta complexidade.'
+    text: 'Foco em contratos industriais com alto volume de interfaces e restrições.'
   },
   {
     title: 'Lean no canteiro',
-    text: 'Estrutura Lean aplicada ao canteiro e à gestão.'
+    text: 'Estrutura Lean aplicada ao canteiro, à rotina semanal e à tomada de decisão.'
   },
   {
     title: 'Gestão ágil',
@@ -89,11 +89,11 @@ const differentials = [
   },
   {
     title: 'Implantação orientada a resultado',
-    text: 'Implantação orientada a resultado, não apenas teoria.'
+    text: 'Implantação orientada a resultado, e não apenas à adoção de ferramenta.'
   },
   {
     title: 'Base escalável',
-    text: 'Base para crescimento escalável de equipes e contratos.'
+    text: 'Base preparada para crescimento de usuários, contratos e operações.'
   }
 ]
 const markets = ['Mining', 'Energy', 'Oil & Gas', 'Pulp & Paper', 'Steel', 'Industrial EPC']
@@ -101,15 +101,15 @@ const markets = ['Mining', 'Energy', 'Oil & Gas', 'Pulp & Paper', 'Steel', 'Indu
 const consultingPillars = [
   {
     title: 'Consultoria Lean',
-    text: 'Diagnóstico, coaching de líderes e implantação das rotinas Last Planner® adaptadas ao site.'
+    text: 'Diagnóstico, coaching de líderes e implantação das rotinas Last Planner® adaptadas à realidade de cada operação.'
   },
   {
     title: 'Planejamento Industrial',
-    text: 'Integração engenharia–campo, gestão de cronogramas complexos e PMO data-driven.'
+    text: 'Integração entre engenharia, suprimentos e campo, com gestão de cronogramas complexos e PMO orientado por dados.'
   },
   {
     title: 'Software + Método',
-    text: 'Lean Planner 360 com squads dedicados para garantir cadência, analytics e escala.'
+    text: 'Lean Planner 360 combinado a método, implantação e evolução contínua para garantir cadência, análise e escala.'
   }
 ]
 
@@ -118,7 +118,7 @@ const plans = [
     name: 'Trial',
     subtitle: 'Conheça a plataforma na prática.',
     summary:
-      'Uma forma objetiva de validar o Lean Planner 360 em um ambiente controlado, com foco nos fluxos principais de planejamento, acompanhamento e prontidão de execução.',
+      'Uma forma objetiva de validar o Lean Planner 360 em um ambiente controlado, com foco nos fluxos centrais de planejamento, acompanhamento e prontidão de execução.',
     includes: [
       'Acesso inicial à plataforma',
       'Visão do planejamento e acompanhamento',
@@ -248,8 +248,8 @@ function App() {
               para projetos industriais de alta complexidade.
             </h1>
             <p>
-              Lean Planner 360 conecta planejamento mestre, lookahead, execução diária e indicadores para apoiar a
-              checagem antecipada de impedimentos, aumentar previsibilidade e alinhar engenharia, campo e gestão executiva.
+              Lean Planner 360 conecta planejamento mestre, prontidão, execução diária e indicadores para antecipar
+              impedimentos, aumentar previsibilidade e alinhar engenharia, suprimentos, campo e gestão executiva.
             </p>
             <div className="hero-actions">
               <a className="btn btn-primary" href="#contato">
@@ -305,7 +305,7 @@ function App() {
             <p className="kicker">Como funciona</p>
             <h2>Da programação Primavera à execução preparada.</h2>
             <p className="lede">
-              O Lean Planner 360 organiza o cronograma em uma rotina prática para identificar restrições antes que elas cheguem ao campo.
+              O Lean Planner 360 transforma o cronograma em uma rotina prática de prontidão, integração entre áreas e acompanhamento da execução.
             </p>
           </div>
           <div className="how-grid">
