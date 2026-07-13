@@ -115,6 +115,7 @@ input:focus-visible {
 .hero,
 .ecosystem-section,
 .how-section,
+.deployment-section,
 .screens-section,
 .cards-section,
 .platform-section,
@@ -270,6 +271,7 @@ input:focus-visible {
 
 .ecosystem-grid,
 .how-grid,
+.deployment-grid,
 .differentials-grid,
 .cards-section,
 .markets-grid,
@@ -281,6 +283,7 @@ input:focus-visible {
 
 .ecosystem-grid,
 .how-grid,
+.deployment-grid,
 .cards-section,
 .consulting-columns {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -288,6 +291,7 @@ input:focus-visible {
 
 .ecosystem-grid article,
 .how-grid article,
+.deployment-card,
 .differentials-grid article,
 .feature-card,
 .consulting-columns article {
@@ -314,6 +318,10 @@ input:focus-visible {
 }
 
 .how-section {
+  padding-top: 0;
+}
+
+.deployment-section {
   padding-top: 0;
 }
 
@@ -559,6 +567,39 @@ input {
   font-weight: 800;
 }
 
+.deployment-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.deployment-card h3 {
+  margin: 10px 0 10px;
+  color: var(--ink);
+  font-size: 24px;
+}
+
+.deployment-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.deployment-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #cfe8c8;
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .plan-card h3 {
   margin: 0;
   color: var(--ink);
@@ -759,6 +800,7 @@ input {
   .hero,
   .ecosystem-section,
   .how-section,
+  .deployment-section,
   .screens-section,
   .cards-section,
   .platform-section,
