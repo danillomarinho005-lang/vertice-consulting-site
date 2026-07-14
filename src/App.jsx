@@ -199,6 +199,10 @@ const commercialNotes = [
     text: 'Os planos podem ser contratados em assinatura mensal. Para ciclos mais longos, a proposta anual pode ser estruturada com desconto e implantação programada.'
   },
   {
+    title: 'Formas de pagamento',
+    text: 'Cobrança mensal ou anual com pagamento por PIX, boleto ou cartão, conforme a modalidade comercial definida na proposta ou no checkout.'
+  },
+  {
     title: 'Treinamento liberado',
     text: 'O treinamento de uso da plataforma, incluindo vídeos por tela e orientações operacionais, fica liberado enquanto a assinatura estiver ativa.'
   },
