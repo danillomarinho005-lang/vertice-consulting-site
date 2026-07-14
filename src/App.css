@@ -120,6 +120,7 @@ input:focus-visible {
 .cards-section,
 .platform-section,
 .plans-section,
+.training-section,
 .markets-section,
 .consulting-section,
 .contact-section,
@@ -567,6 +568,48 @@ input {
   font-weight: 800;
 }
 
+.plan-billing {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #d7e4fb;
+  background: #f3f7ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.plan-pricing {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f7fbff, #eef7ff);
+  border: 1px solid #dbe8f7;
+}
+
+.plan-price-primary {
+  color: var(--ink);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.plan-price-secondary {
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.plan-price-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .deployment-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -636,6 +679,27 @@ input {
   line-height: 1.7;
 }
 
+.plans-notes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.plans-note-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.plans-note-card p:last-child {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .plans-cta {
   margin-top: 28px;
   padding: clamp(24px, 4vw, 36px);
@@ -655,6 +719,54 @@ input {
 }
 
 .plans-cta p:not(.kicker) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.plans-footnote {
+  margin-top: 14px !important;
+}
+
+.training-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.training-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.training-card p:last-child {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.training-cta {
+  margin-top: 28px;
+  padding: clamp(24px, 4vw, 36px);
+  background: linear-gradient(135deg, #ffffff, #f3faf1 68%, #eef7ff);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: minmax(280px, 1.4fr) minmax(220px, 0.7fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.training-cta h3 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: clamp(26px, 4vw, 34px);
+}
+
+.training-cta p {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
@@ -790,6 +902,7 @@ input {
 
   .platform-box,
   .plans-cta,
+  .training-cta,
   .contact-section {
     grid-template-columns: 1fr;
   }
@@ -805,6 +918,7 @@ input {
   .cards-section,
   .platform-section,
   .markets-section,
+  .training-section,
   .consulting-section,
   .contact-section,
   .footer {

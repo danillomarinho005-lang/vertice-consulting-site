@@ -16,6 +16,7 @@ const navLinks = [
   { label: 'Telas', href: '#telas' },
   { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Planos', href: '#planos' },
+  { label: 'Treinamento', href: '#treinamento' },
   { label: 'Mercados', href: '#mercados' },
   { label: 'Consultoria', href: '#consultoria' },
   { label: 'Contato', href: '#contato' }
@@ -118,6 +119,10 @@ const plans = [
   {
     name: 'Planner Pro',
     subtitle: 'O núcleo completo para o planejador operar de verdade.',
+    billing: 'Assinatura mensal individual ou anual com desconto',
+    monthlyPrice: 'R$ 297/mês',
+    yearlyPrice: 'R$ 2.970/ano',
+    yearlyNote: 'Economia equivalente a 2 meses',
     summary:
       'Plano pensado para o planejador que precisa trabalhar com dashboard, campo, prontidão, revisão de avanço e consolidação do cronograma sem depender de planilhas paralelas.',
     includes: [
@@ -133,6 +138,10 @@ const plans = [
   {
     name: 'Standard Empresa',
     subtitle: 'Integração operacional entre planejamento, materiais e engenharia.',
+    billing: 'Assinatura mensal por empresa ou contrato',
+    monthlyPrice: 'R$ 1.490/mês',
+    yearlyPrice: 'R$ 14.900/ano',
+    yearlyNote: 'Economia equivalente a 2 meses',
     summary:
       'Plano para empresas que querem unificar planejamento, suprimentos, engenharia e campo em um mesmo ambiente operacional, reduzindo retrabalho e perda de informação.',
     includes: [
@@ -147,6 +156,10 @@ const plans = [
   {
     name: 'Pro Empresa',
     subtitle: 'Camada executiva e operação estruturada.',
+    billing: 'Assinatura mensal corporativa ou anual com implantação planejada',
+    monthlyPrice: 'R$ 2.490/mês',
+    yearlyPrice: 'R$ 24.900/ano',
+    yearlyNote: 'Economia equivalente a 2 meses',
     summary:
       'Plano voltado para empresas que precisam, além da operação, consolidar governança, visibilidade executiva e disciplina de acompanhamento em múltiplos contratos ou frentes.',
     includes: [
@@ -161,6 +174,10 @@ const plans = [
   {
     name: 'Enterprise',
     subtitle: 'Implantação sob medida para operações mais complexas.',
+    billing: 'Licenciamento e serviços sob proposta comercial',
+    monthlyPrice: 'Sob proposta',
+    yearlyPrice: 'Sob proposta',
+    yearlyNote: 'Escopo técnico, implantação e integrações definidos por projeto',
     summary:
       'Estrutura indicada para empresas que precisam de aderência fina ao seu modelo de gestão, com personalização, implantação assistida e integrações profundas com o ecossistema corporativo.',
     includes: [
@@ -173,6 +190,40 @@ const plans = [
       'Escopo para integrações profundas sob orçamento'
     ],
     idealFor: 'Grupos empresariais, múltiplos contratos, unidades e clientes com necessidade de adaptação ao processo interno.'
+  }
+]
+
+const commercialNotes = [
+  {
+    title: 'Cobrança recorrente',
+    text: 'Os planos podem ser contratados em assinatura mensal. Para ciclos mais longos, a proposta anual pode ser estruturada com desconto e implantação programada.'
+  },
+  {
+    title: 'Treinamento liberado',
+    text: 'O treinamento de uso da plataforma, incluindo vídeos por tela e orientações operacionais, fica liberado enquanto a assinatura estiver ativa.'
+  },
+  {
+    title: 'Integrações sob orçamento',
+    text: 'Integrações com SAP, TOTVS, LMS, SSO e outras bases corporativas entram como projeto específico, com escopo técnico, cronograma e valor definidos em proposta.'
+  }
+]
+
+const trainingTracks = [
+  {
+    title: 'Onboarding inicial',
+    text: 'Primeiros acessos, estrutura da empresa, cadastro de usuários, leitura dos módulos e orientação prática de implantação.'
+  },
+  {
+    title: 'Treinamento por tela',
+    text: 'Vídeos curtos e objetivos mostrando planejamento, dashboard, campo mobile, RDO, materiais, engenharia e rotina do planejador.'
+  },
+  {
+    title: 'Biblioteca viva',
+    text: 'A trilha evolui continuamente. Novos vídeos, respostas recorrentes e boas práticas são adicionados conforme a base de clientes cresce.'
+  },
+  {
+    title: 'Apoio assistido',
+    text: 'Enquanto a assinatura estiver ativa, o cliente mantém acesso ao conteúdo e pode combinar suporte de implantação conforme o plano contratado.'
   }
 ]
 
@@ -442,6 +493,12 @@ function App() {
                   <p className="plan-name">{plan.name}</p>
                   <h3>{plan.subtitle}</h3>
                 </div>
+                <div className="plan-billing">{plan.billing}</div>
+                <div className="plan-pricing">
+                  <div className="plan-price-primary">{plan.monthlyPrice}</div>
+                  <div className="plan-price-secondary">{plan.yearlyPrice}</div>
+                  <div className="plan-price-note">{plan.yearlyNote}</div>
+                </div>
                 <p className="plan-summary">{plan.summary}</p>
                 <div className="plan-block">
                   <p className="plan-label">Inclui</p>
@@ -458,6 +515,14 @@ function App() {
               </article>
             ))}
           </div>
+          <div className="plans-notes">
+            {commercialNotes.map((item) => (
+              <article key={item.title} className="plans-note-card">
+                <p className="plan-label">{item.title}</p>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
           <div className="plans-cta">
             <div>
               <p className="kicker">Implantação comercial</p>
@@ -466,6 +531,9 @@ function App() {
                 A Vértice Consulting pode apoiar desde a demonstração inicial até implantações mais completas, com
                 personalização, treinamento, exportação para cronogramas oficiais e integrações corporativas sob orçamento.
               </p>
+              <p className="plans-footnote">
+                Os valores de assinatura podem ser apresentados em formato mensal, anual com desconto ou proposta sob medida, conforme o porte da operação e o nível de integração desejado.
+              </p>
             </div>
             <div className="plans-actions">
               <a className="btn btn-primary" href="#contato">
@@ -473,6 +541,40 @@ function App() {
               </a>
               <a className="btn btn-secondary" href="#contato">
                 Falar com a Vértice
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="training-section" id="treinamento">
+          <div className="section-header">
+            <p className="kicker">Treinamento</p>
+            <h2>Uma trilha prática para acelerar a adoção da plataforma.</h2>
+            <p className="lede">
+              O acesso ao treinamento acompanha a assinatura e combina onboarding inicial, vídeos por tela e evolução contínua do conteúdo conforme a operação amadurece.
+            </p>
+          </div>
+          <div className="training-grid">
+            {trainingTracks.map((item) => (
+              <article key={item.title} className="training-card">
+                <p className="plan-label">{item.title}</p>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="training-cta">
+            <div>
+              <h3>Você já pode vender mesmo antes da biblioteca estar completa.</h3>
+              <p>
+                A melhor estratégia neste momento é comercializar com implantação assistida, liberar os primeiros módulos de treinamento e ir ampliando a biblioteca conforme os clientes entram e as dúvidas reais aparecem.
+              </p>
+            </div>
+            <div className="plans-actions">
+              <a className="btn btn-primary" href="#contato">
+                Solicitar apresentação
+              </a>
+              <a className="btn btn-secondary" href={`mailto:${contactEmail}`}>
+                Falar sobre implantação
               </a>
             </div>
           </div>
