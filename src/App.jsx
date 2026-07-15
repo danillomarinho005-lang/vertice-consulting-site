@@ -1,4 +1,5 @@
-﻿import verticeLogo from './assets/vertice-logo.svg'
+﻿import { useMemo, useState } from 'react'
+import verticeLogo from './assets/vertice-logo.svg'
 import leanLogo from './assets/leanplanner360-logo.svg'
 import './App.css'
 
@@ -7,6 +8,13 @@ const contactPhone = '(18) 99812-3101'
 const contactPhoneHref = 'tel:+5518998123101'
 const contactWhatsAppHref = 'https://wa.me/5518998123101'
 const siteUrl = 'https://www.verticeconsulting.tec.br'
+const localCheckoutApiBase = 'http://127.0.0.1:3001/api'
+const productionCheckoutApiBase = 'https://lean-planner-360-api-production.up.railway.app/api'
+const rawCheckoutApiBase = import.meta.env.VITE_LEAN_API_URL?.trim()
+const checkoutApiBase = rawCheckoutApiBase
+  || (typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? localCheckoutApiBase
+    : productionCheckoutApiBase)
 
 const navLinks = [
   { label: 'Visão Geral', href: '#visao-geral' },
@@ -117,12 +125,13 @@ const consultingPillars = [
 
 const plans = [
   {
+    code: 'PLANNER_PRO',
     name: 'Planner Pro',
     subtitle: 'O núcleo completo para o planejador operar de verdade.',
     billing: 'Assinatura mensal individual ou anual com desconto',
     monthlyPrice: 'R$ 297/mês',
-    yearlyPrice: 'R$ 2.970/ano',
-    yearlyNote: 'Economia equivalente a 2 meses',
+    yearlyPrice: 'R$ 3.207,60/ano',
+    yearlyNote: '10% de desconto no pagamento anual',
     summary:
       'Plano pensado para o planejador que precisa trabalhar com dashboard, campo, prontidão, revisão de avanço e consolidação do cronograma sem depender de planilhas paralelas.',
     includes: [
@@ -136,12 +145,13 @@ const plans = [
     idealFor: 'Planejadores, PMOs enxutos e contratos que já exigem análise diária da execução.'
   },
   {
+    code: 'STANDARD_EMPRESA',
     name: 'Standard Empresa',
     subtitle: 'Integração operacional entre planejamento, materiais e engenharia.',
     billing: 'Assinatura mensal por empresa ou contrato',
     monthlyPrice: 'R$ 1.490/mês',
-    yearlyPrice: 'R$ 14.900/ano',
-    yearlyNote: 'Economia equivalente a 2 meses',
+    yearlyPrice: 'R$ 16.092/ano',
+    yearlyNote: '10% de desconto no pagamento anual',
     summary:
       'Plano para empresas que querem unificar planejamento, suprimentos, engenharia e campo em um mesmo ambiente operacional, reduzindo retrabalho e perda de informação.',
     includes: [
@@ -154,12 +164,13 @@ const plans = [
     idealFor: 'Empresas que já querem sair do modelo disperso em planilhas e operar com mais integração entre áreas.'
   },
   {
+    code: 'PRO_EMPRESA',
     name: 'Pro Empresa',
     subtitle: 'Camada executiva e operação estruturada.',
     billing: 'Assinatura mensal corporativa ou anual com implantação planejada',
     monthlyPrice: 'R$ 2.490/mês',
-    yearlyPrice: 'R$ 24.900/ano',
-    yearlyNote: 'Economia equivalente a 2 meses',
+    yearlyPrice: 'R$ 26.892/ano',
+    yearlyNote: '10% de desconto no pagamento anual',
     summary:
       'Plano voltado para empresas que precisam, além da operação, consolidar governança, visibilidade executiva e disciplina de acompanhamento em múltiplos contratos ou frentes.',
     includes: [
@@ -172,6 +183,7 @@ const plans = [
     idealFor: 'Empresas em crescimento, contratos mais críticos e operações que precisam de leitura executiva recorrente.'
   },
   {
+    code: 'ENTERPRISE',
     name: 'Enterprise',
     subtitle: 'Implantação sob medida para operações mais complexas.',
     billing: 'Licenciamento e serviços sob proposta comercial',
@@ -193,10 +205,20 @@ const plans = [
   }
 ]
 
+const defaultLeadForm = {
+  companyName: '',
+  fullName: '',
+  email: '',
+  whatsapp: '',
+  username: '',
+  password: '',
+  confirmPassword: '',
+}
+
 const commercialNotes = [
   {
     title: 'Cobrança recorrente',
-    text: 'Os planos podem ser contratados em assinatura mensal. Para ciclos mais longos, a proposta anual pode ser estruturada com desconto e implantação programada.'
+    text: 'Os planos podem ser contratados em assinatura mensal ou anual. No ciclo anual, aplicamos 10% de desconto com cobrança à vista e implantação programada.'
   },
   {
     title: 'Formas de pagamento',
@@ -292,6 +314,86 @@ const screenShots = [
 ]
 
 function App() {
+  const checkoutEligiblePlans = useMemo(() => plans.filter((plan) => plan.code !== 'ENTERPRISE'), [])
+  const [selectedPlanCode, setSelectedPlanCode] = useState(checkoutEligiblePlans[0]?.code ?? 'PLANNER_PRO')
+  const [billingCycle, setBillingCycle] = useState('MONTHLY')
+  const [leadForm, setLeadForm] = useState(defaultLeadForm)
+  const [checkoutState, setCheckoutState] = useState({ status: 'idle', message: '', checkoutUrl: '' })
+
+  const selectedPlan = useMemo(
+    () => plans.find((plan) => plan.code === selectedPlanCode) ?? plans[0],
+    [selectedPlanCode],
+  )
+
+  const openCheckout = (planCode, cycle = 'MONTHLY') => {
+    setSelectedPlanCode(planCode)
+    setBillingCycle(cycle)
+    setCheckoutState({ status: 'idle', message: '', checkoutUrl: '' })
+    const checkoutSection = document.getElementById('assinatura')
+    if (checkoutSection) checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const handleLeadFieldChange = (field, value) => {
+    setLeadForm((current) => ({ ...current, [field]: value }))
+  }
+
+  const handleCheckoutSubmit = async (event) => {
+    event.preventDefault()
+    if (leadForm.password !== leadForm.confirmPassword) {
+      setCheckoutState({
+        status: 'error',
+        message: 'A confirmação de senha não confere. Revise os campos e tente novamente.',
+        checkoutUrl: '',
+      })
+      return
+    }
+
+    setCheckoutState({
+      status: 'loading',
+      message: 'Estamos preparando o checkout da assinatura. Aguarde um instante.',
+      checkoutUrl: '',
+    })
+
+    try {
+      const response = await fetch(`${checkoutApiBase}/billing/checkout`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          companyName: leadForm.companyName,
+          fullName: leadForm.fullName,
+          email: leadForm.email,
+          whatsapp: leadForm.whatsapp,
+          username: leadForm.username,
+          password: leadForm.password,
+          plan: selectedPlanCode,
+          billingCycle,
+        }),
+      })
+      const payload = await response.json().catch(() => ({}))
+      if (!response.ok) {
+        throw new Error(payload?.error || 'Não foi possível iniciar a assinatura agora.')
+      }
+
+      setCheckoutState({
+        status: 'success',
+        message: payload?.message || 'Cadastro criado com sucesso. Agora você pode seguir para o pagamento.',
+        checkoutUrl: payload?.checkoutUrl || '',
+      })
+
+      if (payload?.checkoutUrl) {
+        window.location.assign(payload.checkoutUrl)
+      }
+    } catch (error) {
+      setCheckoutState({
+        status: 'error',
+        message: error instanceof Error ? error.message : 'Ocorreu um erro ao iniciar a assinatura.',
+        checkoutUrl: '',
+      })
+    }
+  }
+
   return (
     <div className="site">
       <header className="topbar">
@@ -330,12 +432,12 @@ function App() {
               impedimentos, aumentar previsibilidade e alinhar engenharia, suprimentos, campo e gestão executiva.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href="#contato">
-                Ver demonstração
-              </a>
-              <a className="btn btn-secondary" href="#contato">
-                Solicitar acesso
-              </a>
+              <button className="btn btn-primary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>
+                Começar assinatura
+              </button>
+              <button className="btn btn-secondary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'YEARLY')}>
+                Ver opção anual
+              </button>
             </div>
             <div className="hero-notes">
               <article>
@@ -472,7 +574,7 @@ function App() {
               <p className="access-subtitle">
                   Ambientes de teste e implantação são liberados por projeto e por plano, com usuários vinculados ao cliente responsável, trilha de treinamento liberada para assinantes e opção de operação stand alone, conectada ou integrada.
               </p>
-                <a className="login-button" href="#contato">Solicitar demonstração</a>
+                <button className="login-button" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>Iniciar contratação</button>
                 <a className="access-link" href="https://www.leanplanner360.com.br" target="_blank" rel="noreferrer">
                   Acessar plataforma
                 </a>
@@ -516,6 +618,27 @@ function App() {
                   <p className="plan-label">Ideal para</p>
                   <p className="plan-ideal">{plan.idealFor}</p>
                 </div>
+                <div className="plan-actions">
+                  {plan.code === 'ENTERPRISE' ? (
+                    <>
+                      <a className="btn btn-primary" href="#contato">
+                        Solicitar proposta
+                      </a>
+                      <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
+                        Falar sobre integração
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <button className="btn btn-primary" type="button" onClick={() => openCheckout(plan.code, 'MONTHLY')}>
+                        Assinar mensal
+                      </button>
+                      <button className="btn btn-secondary" type="button" onClick={() => openCheckout(plan.code, 'YEARLY')}>
+                        Assinar anual
+                      </button>
+                    </>
+                  )}
+                </div>
               </article>
             ))}
           </div>
@@ -540,13 +663,141 @@ function App() {
               </p>
             </div>
             <div className="plans-actions">
-              <a className="btn btn-primary" href="#contato">
-                Solicitar demonstração
-              </a>
-              <a className="btn btn-secondary" href="#contato">
-                Falar com a Vértice
-              </a>
+              <button className="btn btn-primary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>
+                Começar com Planner Pro
+              </button>
+              <button className="btn btn-secondary" type="button" onClick={() => openCheckout('STANDARD_EMPRESA', 'YEARLY')}>
+                Ver Standard anual
+              </button>
             </div>
+          </div>
+          <div className="checkout-panel" id="assinatura">
+            <div className="checkout-copy">
+              <p className="kicker">Assinatura</p>
+              <h3>Comece a assinatura e siga para o pagamento.</h3>
+              <p>
+                Escolha o plano, preencha os dados do responsável e avance para o checkout. O acesso da organização é liberado
+                após a confirmação do pagamento.
+              </p>
+              <div className="checkout-summary">
+                <div>
+                  <span>Plano selecionado</span>
+                  <strong>{selectedPlan?.name}</strong>
+                </div>
+                <div>
+                  <span>Ciclo</span>
+                  <strong>{billingCycle === 'YEARLY' ? 'Anual com 10% de desconto' : 'Mensal recorrente'}</strong>
+                </div>
+              </div>
+              <p className="checkout-note">
+                Para integrações profundas, SAP, TOTVS, LMS, SSO ou escopo enterprise, seguimos por proposta comercial e implantação dedicada.
+              </p>
+            </div>
+            <form className="checkout-form" onSubmit={handleCheckoutSubmit}>
+              <div className="checkout-form-grid">
+                <label>
+                  Plano
+                  <select value={selectedPlanCode} onChange={(event) => setSelectedPlanCode(event.target.value)}>
+                    {checkoutEligiblePlans.map((plan) => (
+                      <option key={plan.code} value={plan.code}>
+                        {plan.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Cobrança
+                  <select value={billingCycle} onChange={(event) => setBillingCycle(event.target.value)}>
+                    <option value="MONTHLY">Mensal</option>
+                    <option value="YEARLY">Anual</option>
+                  </select>
+                </label>
+                <label>
+                  Empresa
+                  <input
+                    type="text"
+                    value={leadForm.companyName}
+                    onChange={(event) => handleLeadFieldChange('companyName', event.target.value)}
+                    placeholder="Nome da empresa ou contrato"
+                    required
+                  />
+                </label>
+                <label>
+                  Responsável
+                  <input
+                    type="text"
+                    value={leadForm.fullName}
+                    onChange={(event) => handleLeadFieldChange('fullName', event.target.value)}
+                    placeholder="Nome completo"
+                    required
+                  />
+                </label>
+                <label>
+                  E-mail
+                  <input
+                    type="email"
+                    value={leadForm.email}
+                    onChange={(event) => handleLeadFieldChange('email', event.target.value)}
+                    placeholder="voce@empresa.com"
+                    required
+                  />
+                </label>
+                <label>
+                  WhatsApp
+                  <input
+                    type="tel"
+                    value={leadForm.whatsapp}
+                    onChange={(event) => handleLeadFieldChange('whatsapp', event.target.value)}
+                    placeholder="(00) 00000-0000"
+                  />
+                </label>
+                <label>
+                  Usuário
+                  <input
+                    type="text"
+                    value={leadForm.username}
+                    onChange={(event) => handleLeadFieldChange('username', event.target.value)}
+                    placeholder="Opcional"
+                  />
+                </label>
+                <label>
+                  Senha
+                  <input
+                    type="password"
+                    value={leadForm.password}
+                    onChange={(event) => handleLeadFieldChange('password', event.target.value)}
+                    placeholder="Defina uma senha"
+                    required
+                  />
+                </label>
+                <label className="checkout-form-span">
+                  Confirmar senha
+                  <input
+                    type="password"
+                    value={leadForm.confirmPassword}
+                    onChange={(event) => handleLeadFieldChange('confirmPassword', event.target.value)}
+                    placeholder="Repita a senha"
+                    required
+                  />
+                </label>
+              </div>
+              <div className="checkout-form-actions">
+                <button className="btn btn-primary" type="submit" disabled={checkoutState.status === 'loading'}>
+                  {checkoutState.status === 'loading' ? 'Preparando checkout...' : 'Continuar para pagamento'}
+                </button>
+                <a className="btn btn-secondary" href="#contato">
+                  Falar com a Vértice
+                </a>
+              </div>
+              <div className={`checkout-feedback ${checkoutState.status !== 'idle' ? `is-${checkoutState.status}` : ''}`}>
+                {checkoutState.message || 'Pagamento por PIX, boleto ou cartão. A liberação ocorre após a confirmação da assinatura.'}
+              </div>
+              {checkoutState.checkoutUrl ? (
+                <a className="checkout-direct-link" href={checkoutState.checkoutUrl} target="_blank" rel="noreferrer">
+                  Abrir checkout em outra aba
+                </a>
+              ) : null}
+            </form>
           </div>
         </section>
 
@@ -574,9 +825,9 @@ function App() {
               </p>
             </div>
             <div className="plans-actions">
-              <a className="btn btn-primary" href="#contato">
+              <button className="btn btn-primary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>
                 Solicitar apresentação
-              </a>
+              </button>
               <a className="btn btn-secondary" href={`mailto:${contactEmail}`}>
                 Falar sobre implantação
               </a>
