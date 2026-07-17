@@ -209,6 +209,7 @@ const defaultLeadForm = {
   companyName: '',
   fullName: '',
   email: '',
+  cpfCnpj: '',
   whatsapp: '',
   username: '',
   password: '',
@@ -364,6 +365,7 @@ function App() {
           companyName: leadForm.companyName,
           fullName: leadForm.fullName,
           email: leadForm.email,
+          cpfCnpj: leadForm.cpfCnpj,
           whatsapp: leadForm.whatsapp,
           username: leadForm.username,
           password: leadForm.password,
@@ -739,6 +741,16 @@ function App() {
                     value={leadForm.email}
                     onChange={(event) => handleLeadFieldChange('email', event.target.value)}
                     placeholder="voce@empresa.com"
+                    required
+                  />
+                </label>
+                <label>
+                  CPF ou CNPJ
+                  <input
+                    type="text"
+                    value={leadForm.cpfCnpj}
+                    onChange={(event) => handleLeadFieldChange('cpfCnpj', event.target.value)}
+                    placeholder="Somente para cobrança"
                     required
                   />
                 </label>
