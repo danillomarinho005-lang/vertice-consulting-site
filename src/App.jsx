@@ -210,6 +210,10 @@ const defaultLeadForm = {
   fullName: '',
   email: '',
   cpfCnpj: '',
+  postalCode: '',
+  address: '',
+  addressNumber: '',
+  province: '',
   whatsapp: '',
   username: '',
   password: '',
@@ -366,6 +370,10 @@ function App() {
           fullName: leadForm.fullName,
           email: leadForm.email,
           cpfCnpj: leadForm.cpfCnpj,
+          postalCode: leadForm.postalCode,
+          address: leadForm.address,
+          addressNumber: leadForm.addressNumber,
+          province: leadForm.province,
           whatsapp: leadForm.whatsapp,
           username: leadForm.username,
           password: leadForm.password,
@@ -751,6 +759,46 @@ function App() {
                     value={leadForm.cpfCnpj}
                     onChange={(event) => handleLeadFieldChange('cpfCnpj', event.target.value)}
                     placeholder="Somente para cobrança"
+                    required
+                  />
+                </label>
+                <label>
+                  CEP
+                  <input
+                    type="text"
+                    value={leadForm.postalCode}
+                    onChange={(event) => handleLeadFieldChange('postalCode', event.target.value)}
+                    placeholder="00000-000"
+                    required
+                  />
+                </label>
+                <label className="checkout-form-span">
+                  Endereço
+                  <input
+                    type="text"
+                    value={leadForm.address}
+                    onChange={(event) => handleLeadFieldChange('address', event.target.value)}
+                    placeholder="Rua, avenida ou alameda"
+                    required
+                  />
+                </label>
+                <label>
+                  Número
+                  <input
+                    type="text"
+                    value={leadForm.addressNumber}
+                    onChange={(event) => handleLeadFieldChange('addressNumber', event.target.value)}
+                    placeholder="Número"
+                    required
+                  />
+                </label>
+                <label>
+                  Bairro
+                  <input
+                    type="text"
+                    value={leadForm.province}
+                    onChange={(event) => handleLeadFieldChange('province', event.target.value)}
+                    placeholder="Bairro"
                     required
                   />
                 </label>
