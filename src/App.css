@@ -778,7 +778,7 @@ select {
 
 .checkout-summary {
   display: grid;
-  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
   gap: 12px;
   margin-top: 20px;
 }
@@ -834,6 +834,13 @@ select {
 
 .checkout-form-span {
   grid-column: 1 / -1;
+}
+
+.checkout-form-help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .checkout-form-actions {

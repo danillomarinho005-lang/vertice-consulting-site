@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react'
+﻿import { useEffect, useMemo, useState } from 'react'
 import verticeLogo from './assets/vertice-logo.svg'
 import leanLogo from './assets/leanplanner360-logo.svg'
 import './App.css'
@@ -129,8 +129,8 @@ const plans = [
     name: 'Planner Pro',
     subtitle: 'O núcleo completo para o planejador operar de verdade.',
     billing: 'Assinatura mensal individual ou anual com desconto',
-    monthlyPrice: 'R$ 297/mês',
-    yearlyPrice: 'R$ 3.207,60/ano',
+    monthlyPrice: 'R$ 119,90/mês',
+    yearlyPrice: 'R$ 1.294,92/ano',
     yearlyNote: '10% de desconto no pagamento anual',
     summary:
       'Plano pensado para o planejador que precisa trabalhar com dashboard, campo, prontidão, revisão de avanço e consolidação do cronograma sem depender de planilhas paralelas.',
@@ -227,7 +227,7 @@ const commercialNotes = [
   },
   {
     title: 'Formas de pagamento',
-    text: 'Cobrança mensal ou anual com pagamento por PIX, boleto ou cartão, conforme a modalidade comercial definida na proposta ou no checkout.'
+    text: 'Cobrança mensal recorrente no cartão e opção anual à vista por PIX ou cartão, conforme a modalidade comercial definida no checkout.'
   },
   {
     title: 'Treinamento liberado',
@@ -322,6 +322,7 @@ function App() {
   const checkoutEligiblePlans = useMemo(() => plans.filter((plan) => plan.code !== 'ENTERPRISE'), [])
   const [selectedPlanCode, setSelectedPlanCode] = useState(checkoutEligiblePlans[0]?.code ?? 'PLANNER_PRO')
   const [billingCycle, setBillingCycle] = useState('MONTHLY')
+  const [paymentMethod, setPaymentMethod] = useState('CREDIT_CARD')
   const [leadForm, setLeadForm] = useState(defaultLeadForm)
   const [checkoutState, setCheckoutState] = useState({ status: 'idle', message: '', checkoutUrl: '' })
 
@@ -333,10 +334,17 @@ function App() {
   const openCheckout = (planCode, cycle = 'MONTHLY') => {
     setSelectedPlanCode(planCode)
     setBillingCycle(cycle)
+    setPaymentMethod(cycle === 'YEARLY' ? 'PIX' : 'CREDIT_CARD')
     setCheckoutState({ status: 'idle', message: '', checkoutUrl: '' })
     const checkoutSection = document.getElementById('assinatura')
     if (checkoutSection) checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+
+  useEffect(() => {
+    if (billingCycle === 'MONTHLY' && paymentMethod === 'PIX') {
+      setPaymentMethod('CREDIT_CARD')
+    }
+  }, [billingCycle, paymentMethod])
 
   const handleLeadFieldChange = (field, value) => {
     setLeadForm((current) => ({ ...current, [field]: value }))
@@ -379,6 +387,7 @@ function App() {
           password: leadForm.password,
           plan: selectedPlanCode,
           billingCycle,
+          paymentMethod,
         }),
       })
       const payload = await response.json().catch(() => ({}))
@@ -698,9 +707,13 @@ function App() {
                   <span>Ciclo</span>
                   <strong>{billingCycle === 'YEARLY' ? 'Anual com 10% de desconto' : 'Mensal recorrente'}</strong>
                 </div>
+                <div>
+                  <span>Pagamento</span>
+                  <strong>{paymentMethod === 'PIX' ? 'PIX à vista' : 'Cartão de crédito'}</strong>
+                </div>
               </div>
               <p className="checkout-note">
-                Para integrações profundas, SAP, TOTVS, LMS, SSO ou escopo enterprise, seguimos por proposta comercial e implantação dedicada.
+                Se você já é cliente, use o mesmo e-mail e a mesma senha da conta atual para renovar ou fazer upgrade do plano. Para integrações profundas, SAP, TOTVS, LMS, SSO ou escopo enterprise, seguimos por proposta comercial e implantação dedicada.
               </p>
             </div>
             <form className="checkout-form" onSubmit={handleCheckoutSubmit}>
@@ -720,6 +733,13 @@ function App() {
                   <select value={billingCycle} onChange={(event) => setBillingCycle(event.target.value)}>
                     <option value="MONTHLY">Mensal</option>
                     <option value="YEARLY">Anual</option>
+                  </select>
+                </label>
+                <label>
+                  Pagamento
+                  <select value={paymentMethod} onChange={(event) => setPaymentMethod(event.target.value)}>
+                    <option value="CREDIT_CARD">Cartão de crédito</option>
+                    <option value="PIX" disabled={billingCycle !== 'YEARLY'}>PIX à vista (anual)</option>
                   </select>
                 </label>
                 <label>
@@ -840,6 +860,9 @@ function App() {
                     required
                   />
                 </label>
+                <p className="checkout-form-help checkout-form-span">
+                  No plano mensal, a cobrança segue em cartão recorrente. No anual, você pode escolher cartão ou PIX à vista. Para renovação ou upgrade, use a mesma conta já cadastrada.
+                </p>
               </div>
               <div className="checkout-form-actions">
                 <button className="btn btn-primary" type="submit" disabled={checkoutState.status === 'loading'}>
