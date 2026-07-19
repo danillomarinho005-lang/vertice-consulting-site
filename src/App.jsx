@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react'
+﻿import { useEffect, useMemo, useRef, useState } from 'react'
 import verticeLogo from './assets/vertice-logo.svg'
 import leanLogo from './assets/leanplanner360-logo.svg'
 import './App.css'
@@ -220,6 +220,16 @@ const defaultLeadForm = {
   confirmPassword: '',
 }
 
+function normalizeDigits(value) {
+  return String(value || '').replace(/\D/g, '')
+}
+
+function formatPostalCode(value) {
+  const digits = normalizeDigits(value).slice(0, 8)
+  if (digits.length <= 5) return digits
+  return `${digits.slice(0, 5)}-${digits.slice(5)}`
+}
+
 const commercialNotes = [
   {
     title: 'Cobrança recorrente',
@@ -325,6 +335,8 @@ function App() {
   const [paymentMethod, setPaymentMethod] = useState('CREDIT_CARD')
   const [leadForm, setLeadForm] = useState(defaultLeadForm)
   const [checkoutState, setCheckoutState] = useState({ status: 'idle', message: '', checkoutUrl: '' })
+  const [postalCodeState, setPostalCodeState] = useState({ status: 'idle', message: '' })
+  const resolvedPostalCodeRef = useRef('')
 
   const selectedPlan = useMemo(
     () => plans.find((plan) => plan.code === selectedPlanCode) ?? plans[0],
@@ -350,13 +362,88 @@ function App() {
     setLeadForm((current) => ({ ...current, [field]: value }))
   }
 
+  const handlePostalCodeChange = (value) => {
+    const formatted = formatPostalCode(value)
+    setLeadForm((current) => ({ ...current, postalCode: formatted }))
+    if (resolvedPostalCodeRef.current !== normalizeDigits(formatted)) {
+      setPostalCodeState({ status: 'idle', message: '' })
+    }
+  }
+
+  const handlePostalCodeBlur = async () => {
+    const postalCodeDigits = normalizeDigits(leadForm.postalCode)
+    if (!postalCodeDigits) {
+      setPostalCodeState({ status: 'idle', message: '' })
+      return
+    }
+
+    if (postalCodeDigits.length !== 8) {
+      setPostalCodeState({
+        status: 'error',
+        message: 'Informe um CEP com 8 dígitos para validar o endereço de cobrança.',
+      })
+      return
+    }
+
+    if (resolvedPostalCodeRef.current === postalCodeDigits) {
+      return
+    }
+
+    setPostalCodeState({
+      status: 'loading',
+      message: 'Validando o CEP e buscando o endereço de cobrança...',
+    })
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${postalCodeDigits}/json/`)
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok || payload?.erro) {
+        throw new Error('Não encontramos esse CEP. Confirme o CEP principal do endereço de cobrança.')
+      }
+
+      resolvedPostalCodeRef.current = postalCodeDigits
+      setLeadForm((current) => ({
+        ...current,
+        postalCode: formatPostalCode(postalCodeDigits),
+        address: payload?.logradouro?.trim() ? payload.logradouro.trim() : current.address,
+        province: payload?.bairro?.trim() ? payload.bairro.trim() : current.province,
+      }))
+      setPostalCodeState({
+        status: 'success',
+        message: 'CEP validado. Rua e bairro foram preenchidos automaticamente quando disponíveis.',
+      })
+    } catch (error) {
+      resolvedPostalCodeRef.current = ''
+      setPostalCodeState({
+        status: 'error',
+        message: error instanceof Error ? error.message : 'Não foi possível validar o CEP agora.',
+      })
+    }
+  }
+
   const handleCheckoutSubmit = async (event) => {
     event.preventDefault()
+    const postalCodeDigits = normalizeDigits(leadForm.postalCode)
+
     if (leadForm.password !== leadForm.confirmPassword) {
       setCheckoutState({
         status: 'error',
         message: 'A confirmação de senha não confere. Revise os campos e tente novamente.',
         checkoutUrl: '',
+      })
+      return
+    }
+
+    if (postalCodeDigits.length !== 8) {
+      setCheckoutState({
+        status: 'error',
+        message: 'Use um CEP válido com 8 dígitos para seguir para o pagamento.',
+        checkoutUrl: '',
+      })
+      setPostalCodeState({
+        status: 'error',
+        message: 'Use o CEP principal do endereço de cobrança no formato 00000-000.',
       })
       return
     }
@@ -787,10 +874,16 @@ function App() {
                   <input
                     type="text"
                     value={leadForm.postalCode}
-                    onChange={(event) => handleLeadFieldChange('postalCode', event.target.value)}
+                    onChange={(event) => handlePostalCodeChange(event.target.value)}
+                    onBlur={handlePostalCodeBlur}
                     placeholder="00000-000"
+                    inputMode="numeric"
+                    maxLength={9}
                     required
                   />
+                  <span className={`checkout-field-note ${postalCodeState.status !== 'idle' ? `is-${postalCodeState.status}` : ''}`}>
+                    {postalCodeState.message || 'Use o CEP do endereço de cobrança. Ao sair do campo, buscamos rua e bairro automaticamente.'}
+                  </span>
                 </label>
                 <label className="checkout-form-span">
                   Endereço
@@ -873,7 +966,7 @@ function App() {
                 </a>
               </div>
               <div className={`checkout-feedback ${checkoutState.status !== 'idle' ? `is-${checkoutState.status}` : ''}`}>
-                {checkoutState.message || 'Pagamento por PIX, boleto ou cartão. A liberação ocorre após a confirmação da assinatura.'}
+                {checkoutState.message || 'Pagamento por cartão de crédito ou PIX, conforme a modalidade escolhida. A liberação ocorre após a confirmação da assinatura.'}
               </div>
               {checkoutState.checkoutUrl ? (
                 <a className="checkout-direct-link" href={checkoutState.checkoutUrl} target="_blank" rel="noreferrer">

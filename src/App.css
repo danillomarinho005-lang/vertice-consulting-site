@@ -843,6 +843,25 @@ select {
   line-height: 1.6;
 }
 
+.checkout-field-note {
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.checkout-field-note.is-loading {
+  color: var(--blue);
+}
+
+.checkout-field-note.is-success {
+  color: var(--green);
+}
+
+.checkout-field-note.is-error {
+  color: #b42318;
+}
+
 .checkout-form-actions {
   display: flex;
   flex-wrap: wrap;
