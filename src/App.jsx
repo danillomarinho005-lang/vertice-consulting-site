@@ -63,7 +63,7 @@ const ecosystemItems = [
   },
   {
     title: 'Integração Digital',
-    text: 'Conexão entre rotina de obra, gestão visual e sistemas corporativos, com possibilidade de integrações, SSO, Primavera SQLite e conexão com outras bases de dados.'
+    text: 'Substitui o cenário de várias planilhas soltas por um fluxo único entre rotina de obra, gestão visual e sistemas corporativos, com possibilidade de integrações, SSO, Primavera SQLite e conexão com outras bases.'
   },
   {
     title: 'Execução no Campo',
@@ -508,6 +508,8 @@ function App() {
             <p>
               Lean Planner 360 conecta planejamento mestre, prontidão, execução diária e indicadores para antecipar
               impedimentos, aumentar previsibilidade e alinhar engenharia, suprimentos, campo e gestão executiva.
+              Em vez de operar com várias planilhas sem integração, a empresa passa a trabalhar com um único fluxo
+              digital para planejar, verificar, atualizar e consolidar a execução.
             </p>
             <div className="hero-actions">
               <button className="btn btn-primary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>
@@ -535,6 +537,16 @@ function App() {
             <p className="kicker">Ecossistema</p>
             <h2>Vértice + Lean Planner 360</h2>
             <p className="lede">Industrial Tech para unir estratégia, planejamento e execução com um único fluxo digital.</p>
+          </div>
+          <div className="hero-notes">
+            <article>
+              <strong>Menos planilhas paralelas</strong>
+              <p>Reduz a dependência de controles separados por área e melhora a consistência entre planejamento, materiais, engenharia e campo.</p>
+            </article>
+            <article>
+              <strong>Mais integração operacional</strong>
+              <p>As informações deixam de circular em arquivos desconectados e passam a alimentar uma rotina única de prontidão, avanço e consolidação.</p>
+            </article>
           </div>
           <div className="ecosystem-grid">
             {ecosystemItems.map((item) => (
