@@ -21,7 +21,6 @@ const navLinks = [
   { label: 'Ecossistema', href: '#ecossistema' },
   { label: 'Como funciona', href: '#como-funciona' },
   { label: 'Implantação', href: '#implantacao' },
-  { label: 'Telas', href: '#telas' },
   { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Planos', href: '#planos' },
   { label: 'Treinamento', href: '#treinamento' },
@@ -240,10 +239,6 @@ const commercialNotes = [
     text: 'Cobrança mensal recorrente no cartão e opção anual à vista por PIX ou cartão, conforme a modalidade comercial definida no checkout.'
   },
   {
-    title: 'Treinamento liberado',
-    text: 'O treinamento de uso da plataforma, incluindo vídeos por tela e orientações operacionais, fica liberado enquanto a assinatura estiver ativa.'
-  },
-  {
     title: 'Integrações sob orçamento',
     text: 'Integrações com SAP, TOTVS, LMS, SSO e outras bases corporativas entram como projeto específico, com escopo técnico, cronograma e valor definidos em proposta.'
   }
@@ -302,29 +297,6 @@ const deploymentModels = [
     title: 'Integração enterprise sob orçamento',
     text: 'Quando o cliente precisa conectar SAP, TOTVS, LMS, SSO ou outras bases corporativas, a integração entra como projeto dedicado, com escopo, cronograma e proposta comercial específicos.',
     tag: 'Projeto sob consulta'
-  }
-]
-
-const screenShots = [
-  {
-    src: '/screens/dashboard.png',
-    title: 'Dashboard executivo',
-    text: 'Indicadores para acompanhar atividades, impedimentos e evolução do planejamento.'
-  },
-  {
-    src: '/screens/board.png',
-    title: 'Board de atividades',
-    text: 'Visão por semana, WBS e responsáveis para orientar a preparação da execução.'
-  },
-  {
-    src: '/screens/integracao.png',
-    title: 'Integração Primavera P6',
-    text: 'Importação de XER, XML, CSV, JSON e SQLite para manter o cronograma estruturado.'
-  },
-  {
-    src: '/screens/checklist.png',
-    title: 'Checklist de restrições',
-    text: 'Verificação antecipada dos impedimentos que podem afetar a frente de trabalho.'
   }
 ]
 
@@ -620,27 +592,6 @@ function App() {
                 <p className="deployment-tag">{item.tag}</p>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="screens-section" id="telas">
-          <div className="section-header">
-            <p className="kicker">Telas reais</p>
-            <h2>Rotina visual para planejar, verificar e acompanhar.</h2>
-            <p className="lede">
-              Interfaces usadas para demonstrar o fluxo de planejamento, integração e checklist.
-            </p>
-          </div>
-          <div className="screens-grid">
-            {screenShots.map((screen) => (
-              <article key={screen.title} className="screen-card">
-                <img src={screen.src} alt={screen.title} />
-                <div>
-                  <h3>{screen.title}</h3>
-                  <p>{screen.text}</p>
-                </div>
               </article>
             ))}
           </div>
