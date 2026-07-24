@@ -766,7 +766,23 @@ function App() {
                 Se você já é cliente, use o mesmo e-mail e a mesma senha da conta atual para renovar ou fazer upgrade do plano. Para integrações profundas, SAP, TOTVS, LMS, SSO ou escopo enterprise, seguimos por proposta comercial e implantação dedicada.
               </p>
             </div>
-            <form className="checkout-form" onSubmit={handleCheckoutSubmit}>
+            <form className="checkout-form" onSubmit={handleCheckoutSubmit} autoComplete="off">
+              <input
+                type="text"
+                name="fake_username"
+                autoComplete="username"
+                tabIndex={-1}
+                aria-hidden="true"
+                style={{ display: 'none' }}
+              />
+              <input
+                type="password"
+                name="fake_password"
+                autoComplete="current-password"
+                tabIndex={-1}
+                aria-hidden="true"
+                style={{ display: 'none' }}
+              />
               <div className="checkout-form-grid">
                 <label>
                   Plano
@@ -816,9 +832,13 @@ function App() {
                   E-mail
                   <input
                     type="email"
+                    name="billing_contact_email"
                     value={leadForm.email}
                     onChange={(event) => handleLeadFieldChange('email', event.target.value)}
                     placeholder="voce@empresa.com"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-1p-ignore="true"
                     required
                   />
                 </label>
@@ -891,18 +911,26 @@ function App() {
                   Usuário
                   <input
                     type="text"
+                    name="billing_access_username"
                     value={leadForm.username}
                     onChange={(event) => handleLeadFieldChange('username', event.target.value)}
                     placeholder="Opcional"
+                    autoComplete="off"
+                    data-lpignore="true"
+                    data-1p-ignore="true"
                   />
                 </label>
                 <label>
                   Senha
                   <input
                     type="password"
+                    name="billing_access_password"
                     value={leadForm.password}
                     onChange={(event) => handleLeadFieldChange('password', event.target.value)}
                     placeholder="Defina uma senha"
+                    autoComplete="new-password"
+                    data-lpignore="true"
+                    data-1p-ignore="true"
                     required
                   />
                 </label>
@@ -910,9 +938,13 @@ function App() {
                   Confirmar senha
                   <input
                     type="password"
+                    name="billing_access_password_confirm"
                     value={leadForm.confirmPassword}
                     onChange={(event) => handleLeadFieldChange('confirmPassword', event.target.value)}
                     placeholder="Repita a senha"
+                    autoComplete="new-password"
+                    data-lpignore="true"
+                    data-1p-ignore="true"
                     required
                   />
                 </label>
