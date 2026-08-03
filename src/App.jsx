@@ -10,6 +10,7 @@ const contactWhatsAppHref = 'https://wa.me/5518998123101'
 const siteUrl = 'https://www.verticeconsulting.tec.br'
 const localCheckoutApiBase = 'http://127.0.0.1:3001/api'
 const productionCheckoutApiBase = 'https://lean-planner-360-api-production.up.railway.app/api'
+const platformVideoUrl = import.meta.env.VITE_PLATFORM_VIDEO_URL?.trim() || ''
 const rawCheckoutApiBase = import.meta.env.VITE_LEAN_API_URL?.trim()
 const checkoutApiBase = rawCheckoutApiBase
   || (typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname)
@@ -18,60 +19,78 @@ const checkoutApiBase = rawCheckoutApiBase
 
 const navLinks = [
   { label: 'Visão Geral', href: '#visao-geral' },
-  { label: 'Ecossistema', href: '#ecossistema' },
+  { label: 'Dor', href: '#dor' },
+  { label: 'Plataforma', href: '#plataforma' },
   { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Vídeo', href: '#video' },
   { label: 'Implantação', href: '#implantacao' },
-  { label: 'Funcionalidades', href: '#funcionalidades' },
   { label: 'Planos', href: '#planos' },
-  { label: 'Treinamento', href: '#treinamento' },
-  { label: 'Mercados', href: '#mercados' },
-  { label: 'Consultoria', href: '#consultoria' },
   { label: 'Contato', href: '#contato' }
+]
+
+const heroImage = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80'
+
+const painGallery = [
+  {
+    title: 'Campo sem visão integrada',
+    text: 'Quando o time de campo depende de planilhas dispersas, o problema aparece na frente de serviço tarde demais.',
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    title: 'Material fora da sequência',
+    text: 'Entrega, prioridade e necessidade real da obra ficam desalinhadas quando suprimentos não conversa com o cronograma.',
+    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    title: 'Engenharia travando execução',
+    text: 'Pendências técnicas e liberações atrasadas impactam a produtividade quando não entram cedo na leitura de prontidão.',
+    image: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80',
+  },
 ]
 
 const features = [
   {
-    icon: '🛰️',
-    title: 'Antecipação de gargalos',
-    description: 'Transforme o cronograma em leitura prática para antecipar restrições, proteger frentes e reduzir improvisos antes do impacto na produção.'
+    icon: '📍',
+    title: 'Dashboard de prontidão',
+    description: 'Mostra o que está pronto, bloqueado ou em risco para agir antes que a frente de serviço pare por falta de material, engenharia ou liberação.'
   },
   {
-    icon: '⚡',
-    title: 'Kanban automático de prontidão',
-    description: 'Checklists, restrições, materiais, engenharia e pendências conectados ao plano para mostrar o que está pronto, bloqueado ou em risco.'
+    icon: '📦',
+    title: 'Materiais conectados ao prazo',
+    description: 'Substitui controles paralelos por uma leitura única entre suprimentos, cronograma e campo, facilitando a priorização do que realmente protege a execução.'
   },
   {
-    icon: '📊',
-    title: 'Consolidação com o planejador',
-    description: 'O campo atualiza no Lean Planner 360 e o planejador revisa, aceita e exporta atualizações para o cronograma oficial em Primavera ou Project.'
+    icon: '📐',
+    title: 'Engenharia ligada à execução',
+    description: 'Organiza pendências, documentos e liberações de engenharia no mesmo fluxo da prontidão, evitando surpresas na hora de mobilizar a equipe.'
   }
 ]
 
 const platformChecklist = [
-  'Planejamento lookahead conectado ao cronograma importado ou criado de forma nativa',
-  'Kanban automático de prontidão com checklists e leitura de gargalos',
-  'Materiais e engenharia ligados diretamente à rotina de prontidão',
-  'RDO, avanço, restrições e fotos conectados à execução diária',
-  'Exportação controlada de atualizações para consolidação do planejador',
-  'Base preparada para projetos, usuários, acessos por cliente e integrações corporativas'
+  'Dashboard visual para antecipar gargalos antes do impacto na frente de serviço',
+  'Materiais, engenharia e restrições conectados à mesma rotina operacional',
+  'Checklists automáticos de prontidão por atividade, pacote ou disciplina',
+  'Atualização de campo, RDO e avanço no mesmo fluxo do planejamento',
+  'Exportação controlada para consolidação final em Primavera ou Project',
+  'Base pronta para operação por projeto, cliente e organização'
 ]
 
 const ecosystemItems = [
   {
-    title: 'Planejamento e Controle',
-    text: 'Cronogramas executivos, curvas S, restrições, lookahead, gestão de avanço e apoio à decisão com planejamento importado ou criado do zero.'
+    title: 'Planilhas desconectadas',
+    text: 'Materiais, engenharia, restrições e avanço costumam ficar espalhados em arquivos separados, gerando versões conflitantes e retrabalho entre áreas.'
   },
   {
-    title: 'Integração Digital',
-    text: 'Substitui o cenário de várias planilhas soltas por um fluxo único entre rotina de obra, gestão visual e sistemas corporativos, com possibilidade de integrações, SSO, Primavera SQLite e conexão com outras bases.'
+    title: 'Atraso percebido tarde',
+    text: 'Quando o desvio aparece só no cronograma consolidado, o time já perdeu tempo, mobilização e margem de resposta para proteger o prazo.'
   },
   {
-    title: 'Execução no Campo',
-    text: 'Ritmos curtos, organização de frentes e visibilidade de gargalos entre equipes multidisciplinares com foco em prontidão antes da liberação do serviço.'
+    title: 'Decisão reativa',
+    text: 'Sem uma leitura única de prontidão, a obra reage ao problema já instalado em vez de atacar o gargalo com antecedência.'
   },
   {
-    title: 'Gestão Ágil de Produção',
-    text: 'Sprints semanais, alinhamentos diários e ciclos curtos para aumentar previsibilidade, cadência e velocidade de resposta.'
+    title: 'Fluxo único de prontidão',
+    text: 'O Lean Planner 360 transforma esse cenário em um painel operacional único para enxergar o que está pronto, travado e prioritário.'
   }
 ]
 
@@ -265,20 +284,20 @@ const trainingTracks = [
 
 const howItWorks = [
   {
-    title: 'Estruturar o planejamento',
-    text: 'O fluxo pode começar com XER, XML, CSV ou SQLite do Primavera P6, mas também permite criar um planejamento nativo completo do zero, com WBS, atividades, vínculos, datas e linha de base.'
+    title: 'Importar ou estruturar o cronograma',
+    text: 'O fluxo pode começar com Primavera, Project, CSV ou planejamento nativo, mantendo a base do contrato no formato que a operação já utiliza.'
   },
   {
-    title: 'Checar a prontidão',
-    text: 'A rotina de prontidão conecta materiais, engenharia, recursos, procedimentos e equipamentos para verificar impedimentos antes que eles cheguem ao campo.'
+    title: 'Ligar materiais, engenharia e restrições',
+    text: 'A plataforma cruza as informações críticas da execução para mostrar se a frente está pronta, travada ou em risco.'
   },
   {
-    title: 'Atualizar no campo e revisar no planejamento',
-    text: 'Supervisores e responsáveis atualizam avanço, restrições, RDO e evidências na plataforma. O planejador revisa essas mudanças, decide o que aceita e consolida o cronograma oficial.'
+    title: 'Atualizar no campo',
+    text: 'Supervisores e responsáveis registram avanço, fotos, RDO e pendências diretamente na rotina diária, sem depender de planilhas paralelas.'
   },
   {
-    title: 'Executar, exportar e integrar',
-    text: 'A empresa pode operar em modo stand alone com exportação para Primavera ou Project, conectar diretamente ao banco SQLite do Primavera ou contratar integrações mais profundas com outros sistemas.'
+    title: 'Consolidar e decidir',
+    text: 'O planejador revisa, consolida e exporta as atualizações aceitas, enquanto a liderança acompanha a prontidão e prioriza ações antes do atraso acontecer.'
   }
 ]
 
@@ -499,53 +518,65 @@ function App() {
       <main>
         <section className="hero" id="visao-geral">
           <div className="hero-content">
-            <span className="hero-badge">Lean Construction + Agile Execution</span>
-            <h1>
-              Planejamento Lean e execução ágil
-              <br />
-              para projetos industriais de alta complexidade.
-            </h1>
-            <p>
-              Lean Planner 360 conecta planejamento mestre, prontidão, execução diária e indicadores para antecipar
-              impedimentos, aumentar previsibilidade e alinhar engenharia, suprimentos, campo e gestão executiva.
-              Em vez de operar com várias planilhas sem integração, a empresa passa a trabalhar com um único fluxo
-              digital para planejar, verificar, atualizar e consolidar a execução.
-            </p>
-            <div className="hero-actions">
-              <button className="btn btn-primary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>
-                Começar assinatura
-              </button>
-              <button className="btn btn-secondary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'YEARLY')}>
-                Ver opção anual
-              </button>
-            </div>
-            <div className="hero-notes">
-              <article>
-                <strong>Preparar antes de executar</strong>
-                <p>Foco em antecipar gargalos, reduzir improvisos e proteger a rotina de produção antes do impacto no prazo.</p>
-              </article>
-              <article>
-                <strong>Consultoria + plataforma</strong>
-                <p>Método Lean, gestão ágil e tecnologia trabalhando no mesmo fluxo operacional, do campo à consolidação do planejador.</p>
-              </article>
+            <div className="hero-grid">
+              <div className="hero-copy">
+                <span className="hero-badge">Gestão de prontidão para contratos industriais</span>
+                <h1>
+                  Antecipe gargalos de materiais,
+                  <br />
+                  engenharia e campo antes que impactem o prazo.
+                </h1>
+                <p>
+                  O Lean Planner 360 transforma várias planilhas sem integração em um único fluxo digital de prontidão.
+                  Dashboard, materiais, engenharia, restrições e campo passam a conversar entre si para mostrar o que está
+                  pronto, o que está bloqueado e o que ameaça a execução antes que o atraso chegue ao cronograma.
+                </p>
+                <div className="hero-actions">
+                  <button className="btn btn-primary" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>
+                    Começar assinatura
+                  </button>
+                  <a className="btn btn-secondary" href="#video">Ver a plataforma em vídeo</a>
+                </div>
+                <div className="hero-notes">
+                  <article>
+                    <strong>Menos planilhas soltas</strong>
+                    <p>Centralize informações críticas da obra em um mesmo painel, com menos retrabalho e menos perda de contexto entre áreas.</p>
+                  </article>
+                  <article>
+                    <strong>Mais previsibilidade</strong>
+                    <p>Atue sobre restrições, materiais e engenharia com antecedência para proteger a frente de serviço e o prazo do contrato.</p>
+                  </article>
+                </div>
+              </div>
+              <div className="hero-visual">
+                <img src={heroImage} alt="Equipe em obra industrial acompanhando execução no campo" />
+                <div className="hero-visual-callout hero-callout-top">
+                  <span>Prontidão</span>
+                  <strong>Descubra o gargalo antes da frente parar</strong>
+                </div>
+                <div className="hero-visual-callout hero-callout-bottom">
+                  <span>Fluxo único</span>
+                  <strong>Materiais, engenharia e campo na mesma leitura</strong>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="ecosystem-section" id="ecossistema">
+        <section className="ecosystem-section" id="dor">
           <div className="section-header">
-            <p className="kicker">Ecossistema</p>
-            <h2>Vértice + Lean Planner 360</h2>
-            <p className="lede">Industrial Tech para unir estratégia, planejamento e execução com um único fluxo digital.</p>
+            <p className="kicker">A dor que o cliente sente</p>
+            <h2>O problema não é falta de controle. É excesso de controles sem integração.</h2>
+            <p className="lede">Quando cada área trabalha em uma planilha diferente, o gargalo aparece tarde e a obra reage em vez de antecipar.</p>
           </div>
           <div className="hero-notes">
             <article>
-              <strong>Menos planilhas paralelas</strong>
-              <p>Reduz a dependência de controles separados por área e melhora a consistência entre planejamento, materiais, engenharia e campo.</p>
+              <strong>Visão única da prontidão</strong>
+              <p>O Lean Planner 360 reúne os sinais mais importantes da execução em um painel só, sem depender de planilhas paralelas para descobrir o problema.</p>
             </article>
             <article>
-              <strong>Mais integração operacional</strong>
-              <p>As informações deixam de circular em arquivos desconectados e passam a alimentar uma rotina única de prontidão, avanço e consolidação.</p>
+              <strong>Decisão antes do atraso</strong>
+              <p>O objetivo é simples: antecipar o gargalo e agir antes que ele consuma prazo, equipe, mobilização e produtividade.</p>
             </article>
           </div>
           <div className="ecosystem-grid">
@@ -556,11 +587,22 @@ function App() {
               </article>
             ))}
           </div>
+          <div className="pain-gallery">
+            {painGallery.map((item) => (
+              <article key={item.title} className="pain-gallery-card">
+                <img src={item.image} alt={item.title} />
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
           <div className="differentials">
-            <p className="kicker">Diferenciais</p>
-            <h3>Por que a Vértice Consulting</h3>
+            <p className="kicker">Por que converte</p>
+            <h3>O cliente enxerga rápido o que hoje está escondido.</h3>
             <div className="differentials-grid">
-              {differentials.map((item) => (
+              {differentials.slice(0, 4).map((item) => (
                 <article key={item.title}>
                   <h4>{item.title}</h4>
                   <p>{item.text}</p>
@@ -609,7 +651,7 @@ function App() {
           </div>
         </section>
 
-        <section className="cards-section" id="funcionalidades">
+        <section className="cards-section" id="plataforma">
           {features.map((feature) => (
             <article key={feature.title} className="feature-card">
               <div className="feature-icon" aria-hidden="true">
@@ -626,10 +668,11 @@ function App() {
             <div className="platform-left">
               <img src={leanLogo} alt="Lean Planner 360" className="platform-logo" />
               <h2>Lean Planner 360</h2>
-              <p className="platform-subtitle">Lean Construction & Agile Execution</p>
+              <p className="platform-subtitle">Gestão da prontidão com leitura operacional do prazo</p>
               <p className="platform-text">
-                Plataforma digital para planejamento Lean, backlog semanal, execução diária, indicadores OTP,
-                prontidão, exportação controlada de atualizações e integração com Primavera P6.
+                Plataforma digital para transformar planejamento, materiais, engenharia, restrições e campo em uma
+                rotina única de prontidão. A operação enxerga mais cedo o que ameaça o prazo e o planejador consolida
+                a atualização final com mais segurança.
               </p>
               <ul className="platform-list">
                 {platformChecklist.map((item) => (
@@ -641,13 +684,58 @@ function App() {
               <div className="access-card">
                 <p className="access-title">Acesso ao Lean Planner 360</p>
               <p className="access-subtitle">
-                  Ambientes de teste e implantação são liberados por projeto e por plano, com usuários vinculados ao cliente responsável, trilha de treinamento liberada para assinantes e opção de operação stand alone, conectada ou integrada.
+                  Ambientes de teste e implantação são liberados por projeto e por plano, com operação stand alone,
+                  integração sob medida e trilha de treinamento liberada para assinantes.
               </p>
                 <button className="login-button" type="button" onClick={() => openCheckout('PLANNER_PRO', 'MONTHLY')}>Iniciar contratação</button>
                 <a className="access-link" href="https://www.leanplanner360.com.br" target="_blank" rel="noreferrer">
                   Acessar plataforma
                 </a>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="video-section" id="video">
+          <div className="section-header">
+            <p className="kicker">Vídeo da plataforma</p>
+            <h2>Mostre a prontidão acontecendo na tela.</h2>
+            <p className="lede">
+              Um vídeo curto com dashboard, materiais, engenharia e leitura de restrições costuma converter melhor do que uma explicação longa.
+            </p>
+          </div>
+          <div className="video-panel">
+            <div className="video-frame">
+              {platformVideoUrl ? (
+                platformVideoUrl.match(/\.(mp4|webm|ogg)$/i) ? (
+                  <video controls playsInline preload="metadata">
+                    <source src={platformVideoUrl} />
+                  </video>
+                ) : (
+                  <iframe
+                    src={platformVideoUrl}
+                    title="Demonstração Lean Planner 360"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                )
+              ) : (
+                <div className="video-placeholder">
+                  <strong>Espaço pronto para o vídeo da plataforma</strong>
+                  <p>Assim que você gravar, basta informar a URL do vídeo para destacar a demonstração na home.</p>
+                </div>
+              )}
+            </div>
+            <div className="video-copy">
+              <h3>O que mostrar no vídeo</h3>
+              <ul className="platform-list">
+                <li>Dashboard de prontidão e leitura do que está em risco</li>
+                <li>Materiais ligados à atividade e ao prazo</li>
+                <li>Engenharia e pendências conectadas à execução</li>
+                <li>Restrições e checklist automático por frente</li>
+              </ul>
+              <a className="btn btn-secondary" href="#contato">Quero uma demonstração guiada</a>
             </div>
           </div>
         </section>
