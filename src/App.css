@@ -46,6 +46,7 @@ select:focus-visible {
 
 .site {
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .topbar {
@@ -178,6 +179,7 @@ select:focus-visible {
   font-size: 20px;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .hero-actions {
@@ -341,6 +343,7 @@ select:focus-visible {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .ecosystem-section {
@@ -852,6 +855,7 @@ select {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .plan-block {
@@ -1116,6 +1120,7 @@ select {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .plans-actions {
@@ -1264,8 +1269,10 @@ select {
   .how-section,
   .deployment-section,
   .screens-section,
+  .video-section,
   .cards-section,
   .platform-section,
+  .plans-section,
   .markets-section,
   .training-section,
   .consulting-section,
@@ -1281,16 +1288,38 @@ select {
     flex-direction: column;
   }
 
+  .brand-left,
+  .brand-right {
+    min-width: 0;
+    width: 100%;
+  }
+
   .brand-logo.small {
     width: 190px;
+    max-width: 100%;
   }
 
   .brand-logo.vertice-mini {
     width: 154px;
+    max-width: 100%;
   }
 
   .hero p {
     font-size: 18px;
+  }
+
+  .hero h1,
+  .section-header h2,
+  .contact-section h2,
+  .plans-cta h3,
+  .training-cta h3,
+  .checkout-copy h3,
+  .consulting-brand h2,
+  .platform-left h2,
+  .video-copy h3,
+  .plan-card h3,
+  .pain-gallery-card h3 {
+    overflow-wrap: anywhere;
   }
 
   .hero-visual {
@@ -1309,6 +1338,20 @@ select {
   .footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .video-frame,
+  .video-frame iframe,
+  .video-frame video,
+  .checkout-form,
+  .checkout-copy,
+  .video-copy,
+  .plans-cta,
+  .training-cta,
+  .consulting-card,
+  .contact-section,
+  .topbar {
+    max-width: 100%;
   }
 
   .checkout-form-grid,
