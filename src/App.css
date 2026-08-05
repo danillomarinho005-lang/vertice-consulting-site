@@ -91,12 +91,14 @@ select:focus-visible {
   font-size: 16px;
   font-weight: 800;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 .brand-subtitle {
   margin: 2px 0 0;
   font-size: 12px;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .nav {
@@ -315,6 +317,8 @@ select:focus-visible {
   margin: 0;
   font-size: 14px;
   color: var(--muted);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .kicker {
@@ -403,6 +407,7 @@ select:focus-visible {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .how-section {
@@ -461,6 +466,7 @@ select:focus-visible {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .differentials {
@@ -503,6 +509,7 @@ select:focus-visible {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .differentials h3 {
@@ -611,6 +618,7 @@ select:focus-visible {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .video-copy h3 {
@@ -639,6 +647,7 @@ select:focus-visible {
 .platform-list {
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .platform-list {
@@ -675,6 +684,7 @@ select:focus-visible {
 .access-subtitle {
   margin: 0 0 10px;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 label {
@@ -878,6 +888,7 @@ select {
   padding-left: 18px;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .plans-notes {
@@ -899,6 +910,7 @@ select {
   margin: 10px 0 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .plans-cta {
@@ -923,6 +935,7 @@ select {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .plans-footnote {
@@ -1096,6 +1109,7 @@ select {
   margin: 10px 0 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .training-cta {
@@ -1183,6 +1197,7 @@ select {
   margin: 10px 0 0;
   color: #c8d8e6;
   font-size: 18px;
+  overflow-wrap: anywhere;
 }
 
 .consulting-columns article {
@@ -1218,6 +1233,8 @@ select {
   color: var(--blue);
   padding: 16px 18px;
   font-weight: 700;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-link.primary {
@@ -1233,6 +1250,7 @@ select {
   gap: 18px;
   color: var(--muted);
   font-size: 15px;
+  overflow-wrap: anywhere;
 }
 
 .footer-links {
@@ -1244,6 +1262,8 @@ select {
 .footer-links a {
   color: var(--blue);
   font-weight: 700;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 @media (max-width: 1100px) {
@@ -1304,6 +1324,11 @@ select {
     max-width: 100%;
   }
 
+  .hero-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
   .hero p {
     font-size: 18px;
   }
@@ -1333,6 +1358,53 @@ select {
 
   .hero-visual-callout strong {
     font-size: 17px;
+  }
+
+  .hero-notes,
+  .ecosystem-grid,
+  .how-grid,
+  .deployment-grid,
+  .differentials-grid,
+  .screens-grid,
+  .plans-grid,
+  .plans-notes,
+  .training-grid,
+  .markets-grid,
+  .consulting-columns,
+  .video-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-card,
+  .plans-note-card,
+  .training-card,
+  .video-copy,
+  .video-frame,
+  .deployment-card,
+  .feature-card,
+  .ecosystem-grid article,
+  .how-grid article,
+  .pain-gallery-card div,
+  .screen-card div {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero-actions,
+  .plan-actions,
+  .plans-actions,
+  .contact-actions,
+  .footer-links {
+    width: 100%;
+  }
+
+  .btn,
+  .contact-link,
+  .login-button,
+  .access-link {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 
   .footer {
