@@ -8,6 +8,7 @@ const contactPhone = '(18) 99812-3101'
 const contactPhoneHref = 'tel:+5518998123101'
 const contactWhatsAppHref = 'https://wa.me/5518998123101'
 const siteUrl = 'https://www.verticeconsulting.tec.br'
+const freeTrialConfirmationUrl = `${siteUrl}/confirmacao-teste-gratis.html`
 const platformVideoUrl = import.meta.env.VITE_PLATFORM_VIDEO_URL?.trim() || ''
 
 const navLinks = [
@@ -317,7 +318,7 @@ function App() {
                   pronto, o que está bloqueado e o que ameaça a execução antes que o atraso chegue ao cronograma.
                 </p>
                 <div className="hero-actions">
-                  <a className="btn btn-primary" href="#contato">
+                  <a className="btn btn-primary" href={freeTrialConfirmationUrl}>
                     Comece grátis por 7 dias
                   </a>
                   <a className="btn btn-secondary" href="#video">Ver a plataforma em vídeo</a>
@@ -472,7 +473,7 @@ function App() {
                   Ambientes de teste e implantação são liberados por projeto, com operação stand alone,
                   integração sob medida e trilha de treinamento liberada durante o teste guiado.
               </p>
-                <a className="login-button" href="#contato">Solicitar teste grátis</a>
+                <a className="login-button" href={freeTrialConfirmationUrl}>Solicitar teste grátis</a>
                 <a className="access-link" href="https://www.leanplanner360.com.br" target="_blank" rel="noreferrer">
                   Acessar plataforma
                 </a>
@@ -567,7 +568,7 @@ function App() {
                     </>
                   ) : (
                     <>
-                      <a className="btn btn-primary" href="#contato">
+                      <a className="btn btn-primary" href={freeTrialConfirmationUrl}>
                         Comece grátis por 7 dias
                       </a>
                       <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
@@ -600,7 +601,7 @@ function App() {
               </p>
             </div>
             <div className="plans-actions">
-              <a className="btn btn-primary" href="#contato">
+              <a className="btn btn-primary" href={freeTrialConfirmationUrl}>
                 Solicitar teste grátis
               </a>
               <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
@@ -634,7 +635,7 @@ function App() {
               </p>
             </div>
             <div className="plans-actions">
-              <a className="btn btn-primary" href="#contato">
+              <a className="btn btn-primary" href={freeTrialConfirmationUrl}>
                 Solicitar teste grátis
               </a>
               <a className="btn btn-secondary" href={`mailto:${contactEmail}`}>
