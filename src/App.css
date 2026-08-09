@@ -199,6 +199,10 @@ select:focus-visible {
   cursor: pointer;
   border: 1px solid transparent;
   transition: transform 200ms ease, box-shadow 200ms ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary {
@@ -964,6 +968,7 @@ select {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .checkout-summary {
@@ -997,6 +1002,11 @@ select {
 
 .checkout-note {
   margin-top: 18px !important;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: #fffdf4;
+  border: 1px solid #eadfba;
+  color: #6d5b23 !important;
 }
 
 .checkout-form {
@@ -1020,6 +1030,12 @@ select {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.optional-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .checkout-form-span {
