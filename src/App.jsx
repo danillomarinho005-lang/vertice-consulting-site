@@ -10,18 +10,13 @@ const contactWhatsAppHref = 'https://wa.me/5518998123101'
 const siteUrl = 'https://www.verticeconsulting.tec.br'
 const freeTrialConfirmationUrl = `${siteUrl}/confirmacao-teste-gratis.html`
 const platformVideoUrl = import.meta.env.VITE_PLATFORM_VIDEO_URL?.trim() || ''
+const trialApiUrl = import.meta.env.VITE_TRIAL_API_URL?.trim() || 'https://www.leanplanner360.com.br/api'
 const trialRequestStorageKey = 'leanplanner360_trial_request'
 
 const navLinks = [
-  { label: 'Visão Geral', href: '#visao-geral' },
-  { label: 'Dor', href: '#dor' },
-  { label: 'Plataforma', href: '#plataforma' },
   { label: 'Como funciona', href: '#como-funciona' },
-  { label: 'Vídeo', href: '#video' },
-  { label: 'Implantação', href: '#implantacao' },
-  { label: 'Planos', href: '#planos' },
-  { label: 'Avaliação', href: '#captura' },
-  { label: 'Contato', href: '#contato' }
+  { label: 'Plataforma', href: '#plataforma' },
+  { label: 'Teste grátis', href: '#captura' }
 ]
 
 const heroImage = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80'
@@ -282,7 +277,8 @@ const emptyTrialForm = {
   fullName: '',
   email: '',
   whatsapp: '',
-  company: ''
+  company: '',
+  password: ''
 }
 
 function trackTrialEvent(eventName, params = {}) {
@@ -322,7 +318,7 @@ function App() {
     }))
   }
 
-  function handleTrialSubmit(event) {
+  async function handleTrialSubmit(event) {
     event.preventDefault()
 
     const payload = {
@@ -330,6 +326,7 @@ function App() {
       email: trialForm.email.trim(),
       whatsapp: trialForm.whatsapp.trim(),
       company: trialForm.company.trim(),
+      password: trialForm.password,
       requestedEnvironmentName: environmentName,
       product: 'lean_planner_360',
       requestedStatus: 'awaiting_approval',
@@ -337,27 +334,38 @@ function App() {
     }
 
     try {
-      window.sessionStorage?.setItem(trialRequestStorageKey, JSON.stringify(payload))
-    } catch {
-      // Storage is optional; the backend integration must persist the request.
+      const response = await fetch(`${trialApiUrl.replace(/\/$/, '')}/trial-requests`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      const result = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(result.error || 'Não foi possível registrar a solicitação agora.')
+
+      try {
+        window.sessionStorage?.setItem(trialRequestStorageKey, JSON.stringify({
+          requestId: result.requestId,
+          status: result.status,
+          requestedEnvironmentName: payload.requestedEnvironmentName
+        }))
+      } catch {
+        // Storage is optional; the platform API remains the source of truth.
+      }
+
+      window.dispatchEvent(new CustomEvent('leanplanner360:trial_signup_requested', {
+        detail: { requestId: result.requestId, status: result.status }
+      }))
+      trackTrialEvent('trial_signup', {
+        has_company: Boolean(payload.company),
+        request_status: result.status || 'PENDING',
+        account_creation_mode: 'platform_account_created'
+      })
+
+      setTrialFeedback({ type: 'success', message: 'Solicitação recebida. Sua conta está aguardando liberação da equipe Vértice.' })
+      window.setTimeout(() => window.location.assign(freeTrialConfirmationUrl), 900)
+    } catch (error) {
+      setTrialFeedback({ type: 'error', message: error.message || 'Não foi possível enviar sua solicitação. Tente novamente.' })
     }
-
-    window.dispatchEvent(new CustomEvent('leanplanner360:trial_signup_requested', { detail: payload }))
-    trackTrialEvent('trial_signup', {
-      has_company: Boolean(payload.company),
-      request_status: 'awaiting_approval',
-      account_creation_mode: 'pending_backend_integration'
-    })
-
-    setTrialFeedback({
-      type: 'success',
-      message:
-        'Solicitação preparada. Nesta versão do site, ainda falta conectar o endpoint da plataforma para criar a conta com status aguardando liberação; a equipe deve receber estes dados pelo fluxo conectado antes da publicação.'
-    })
-
-    window.setTimeout(() => {
-      window.location.assign(freeTrialConfirmationUrl)
-    }, 1200)
   }
 
   return (
@@ -389,31 +397,26 @@ function App() {
           <div className="hero-content">
             <div className="hero-grid">
               <div className="hero-copy">
-                <span className="hero-badge">Gestão de prontidão para contratos industriais</span>
+                <span className="hero-badge">Teste grátis do Lean Planner 360</span>
                 <h1>
-                  Antecipe gargalos de materiais,
+                  Planeje obras com mais controle
                   <br />
-                  engenharia e campo antes que impactem o prazo.
+                  e menos retrabalho.
                 </h1>
                 <p>
-                  O Lean Planner 360 transforma várias planilhas sem integração em um único fluxo digital de prontidão.
-                  Dashboard, materiais, engenharia, restrições e campo passam a conversar entre si para mostrar o que está
-                  pronto, o que está bloqueado e o que ameaça a execução antes que o atraso chegue ao cronograma.
+                  Centralize planejamento, materiais, engenharia e campo em uma única plataforma para antecipar gargalos
+                  antes que eles afetem prazo e custo.
                 </p>
                 <div className="hero-actions">
                   <a className="btn btn-primary" href="#captura">
-                    Solicitar acesso de avaliação
+                    Solicitar teste grátis da plataforma
                   </a>
                   <a className="btn btn-secondary" href="#video">Ver a plataforma em vídeo</a>
                 </div>
                 <div className="hero-notes">
                   <article>
-                    <strong>Conta de avaliação</strong>
-                    <p>A solicitação entra no fluxo de criação de conta com status aguardando liberação pela equipe da Vértice.</p>
-                  </article>
-                  <article>
-                    <strong>Ambiente nomeado com clareza</strong>
-                    <p>Quando a empresa não for informada, o ambiente de avaliação será criado com o nome da pessoa solicitante.</p>
+                    <strong>Crie sua conta de avaliação</strong>
+                    <p>Preencha o formulário. A equipe entra em contato e libera seu usuário e senha.</p>
                   </article>
                 </div>
               </div>
@@ -609,7 +612,8 @@ function App() {
           </div>
         </section>
 
-        <section className="plans-section" id="planos">
+        {/* A oferta de teste concentra a página nesta etapa; planos e integrações são tratados após o contato inicial. */}
+        {false && <section className="plans-section" id="planos">
           <div className="section-header">
             <p className="kicker">Planos</p>
             <h2>Uma estrutura comercial para cada estágio da operação.</h2>
@@ -693,33 +697,27 @@ function App() {
               </a>
             </div>
           </div>
-        </section>
+        </section>}
 
         <section className="checkout-panel" id="captura" aria-labelledby="trial-form-title">
           <div className="checkout-copy">
-            <p className="kicker">Avaliação Lean Planner 360</p>
-            <h3 id="trial-form-title">Peça acesso para planejamento de obras sem depender de planilhas soltas.</h3>
+            <p className="kicker">Teste grátis da plataforma</p>
+            <h3 id="trial-form-title">Crie sua conta de avaliação do Lean Planner 360.</h3>
             <p>
-              Preencha os dados para solicitar a criação da conta de avaliação. A conta fica com status aguardando liberação
-              até a equipe validar o pedido, preparar o ambiente e orientar a importação inicial.
+              Preencha o formulário. Logo você será contatado e seu usuário e senha serão liberados para iniciar o teste.
             </p>
             <div className="checkout-summary" aria-label="Resumo da avaliação">
               <div>
-                <span>Conta</span>
-                <strong>Solicitada para criação automática com aprovação posterior.</strong>
+                <span>Teste</span>
+                <strong>Conta criada e aguardando liberação.</strong>
               </div>
               <div>
                 <span>Ambiente</span>
                 <strong>{environmentName}</strong>
               </div>
-              <div>
-                <span>Importação</span>
-                <strong>Cronograma e documentos coletados pela equipe.</strong>
-              </div>
             </div>
             <p className="checkout-note">
-              Sem empresa informada, o ambiente será identificado pelo nome da pessoa. A integração automática de documentos
-              ainda não será ativada para esse usuário no momento da solicitação.
+              Depois do seu contato, a equipe combina o recebimento de cronograma e documentos para a configuração inicial.
             </p>
           </div>
 
@@ -770,14 +768,25 @@ function App() {
                   onChange={handleTrialFieldChange}
                 />
               </label>
+              <label>
+                Crie sua senha de acesso
+                <input
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  minLength="8"
+                  value={trialForm.password}
+                  onChange={handleTrialFieldChange}
+                  required
+                />
+              </label>
             </div>
             <p className="checkout-form-help">
-              Este formulário não coleta arquivos. Após a liberação, a equipe da Vértice entra em contato para receber
-              cronograma, projetos e documentos necessários à importação inicial.
+              Seus dados serão usados somente para criar e liberar seu acesso de avaliação.
             </p>
             <div className="checkout-form-actions">
               <button className="btn btn-primary" type="submit">
-                Solicitar acesso de avaliação
+                Solicitar teste grátis da plataforma
               </button>
               <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
                 Tirar dúvida no WhatsApp
@@ -791,7 +800,7 @@ function App() {
           </form>
         </section>
 
-        <section className="training-section" id="treinamento">
+        {false && <section className="training-section" id="treinamento">
           <div className="section-header">
             <p className="kicker">Treinamento</p>
             <h2>Uma trilha prática para acelerar a adoção da plataforma.</h2>
@@ -823,9 +832,9 @@ function App() {
               </a>
             </div>
           </div>
-        </section>
+        </section>}
 
-        <section className="markets-section" id="mercados">
+        {false && <section className="markets-section" id="mercados">
           <h2>Visibilidade de ponta a ponta em projetos industriais complexos.</h2>
           <div className="markets-grid">
             {markets.map((market) => (
@@ -834,9 +843,9 @@ function App() {
               </span>
             ))}
           </div>
-        </section>
+        </section>}
 
-        <section className="consulting-section" id="consultoria">
+        {false && <section className="consulting-section" id="consultoria">
           <div className="consulting-card">
             <div className="consulting-brand">
               <img src={verticeLogo} alt="Vértice Consulting" className="consulting-logo" />
@@ -854,7 +863,7 @@ function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
       </main>
 
       <section className="contact-section" id="contato">
