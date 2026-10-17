@@ -15,28 +15,25 @@ const trialRequestStorageKey = 'leanplanner360_trial_request'
 
 const navLinks = [
   { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Saúde do Projeto', href: '#saude' },
+  { label: 'IA do projeto', href: '#ia' },
   { label: 'Plataforma', href: '#plataforma' },
   { label: 'Teste grátis', href: '#captura' }
 ]
 
-const heroImage = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80'
-
 const painGallery = [
   {
     title: 'Campo sem visão integrada',
-    text: 'Quando o time de campo depende de planilhas dispersas, o problema aparece na frente de serviço tarde demais.',
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80',
+    text: 'Quando o time de campo depende de planilhas dispersas, o problema aparece na frente de serviço tarde demais.'
   },
   {
     title: 'Material fora da sequência',
-    text: 'Entrega, prioridade e necessidade real da obra ficam desalinhadas quando suprimentos não conversa com o cronograma.',
-    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80',
+    text: 'Entrega, prioridade e necessidade real da obra ficam desalinhadas quando suprimentos não conversa com o cronograma.'
   },
   {
     title: 'Engenharia travando execução',
-    text: 'Pendências técnicas e liberações atrasadas impactam a produtividade quando não entram cedo na leitura de prontidão.',
-    image: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80',
-  },
+    text: 'Pendências técnicas e liberações atrasadas impactam a produtividade quando não entram cedo na leitura de prontidão.'
+  }
 ]
 
 const features = [
@@ -54,6 +51,21 @@ const features = [
     icon: '📐',
     title: 'Engenharia ligada à execução',
     description: 'Organiza pendências, documentos e liberações de engenharia no mesmo fluxo da prontidão, evitando surpresas na hora de mobilizar a equipe.'
+  },
+  {
+    icon: '🧵',
+    title: 'Spools de tubulação',
+    description: 'Acompanha fabricação e montagem de spools por etapa, área e inspeção — cruzando MTO, status de solda e recebimento num único farol.'
+  },
+  {
+    icon: '🗂️',
+    title: 'Importação multi-formato',
+    description: 'Lê cronogramas em Primavera (.xer), MS Project (.xml/.xlsx) ou CSV e atualiza datas, avanço e situação sem recriar o que já está em campo.'
+  },
+  {
+    icon: '🧱',
+    title: 'Last Planner digital',
+    description: 'Restrições, lookahead e checklists de campo substituem o quadro físico, com histórico completo de cada decisão.'
   }
 ]
 
@@ -61,9 +73,10 @@ const platformChecklist = [
   'Dashboard visual para antecipar gargalos antes do impacto na frente de serviço',
   'Materiais, engenharia e restrições conectados à mesma rotina operacional',
   'Checklists automáticos de prontidão por atividade, pacote ou disciplina',
+  'Saúde do Projeto: nota de prazo, curva S e caminho crítico atualizados a cada importação',
+  'Chat de IA que responde perguntas sobre o cronograma, spools, materiais e restrições',
   'Atualização de campo, RDO e avanço no mesmo fluxo do planejamento',
-  'Exportação controlada para consolidação final em Primavera ou Project',
-  'Base pronta para operação por projeto, cliente e organização'
+  'Exportação controlada para consolidação final em Primavera ou Project'
 ]
 
 const ecosystemItems = [
@@ -101,21 +114,8 @@ const differentials = [
   {
     title: 'Gestão ágil',
     text: 'Rotinas de gestão ágil com sprints semanais e alinhamentos diários.'
-  },
-  {
-    title: 'Digitalização de rotinas',
-    text: 'Digitalização de rotinas com dados, KPIs e rastreabilidade.'
-  },
-  {
-    title: 'Implantação orientada a resultado',
-    text: 'Implantação orientada a resultado, e não apenas à adoção de ferramenta.'
-  },
-  {
-    title: 'Base escalável',
-    text: 'Base preparada para crescimento de usuários, contratos e operações.'
   }
 ]
-const markets = ['Mining', 'Energy', 'Oil & Gas', 'Pulp & Paper', 'Steel', 'Industrial EPC']
 
 const consultingPillars = [
   {
@@ -129,110 +129,6 @@ const consultingPillars = [
   {
     title: 'Software + Método',
     text: 'Lean Planner 360 combinado a método, implantação e evolução contínua para garantir cadência, análise e escala.'
-  }
-]
-
-const plans = [
-  {
-    code: 'PLANNER_PRO',
-    name: 'Planner Pro',
-    subtitle: 'O núcleo completo para o planejador operar de verdade.',
-    billing: 'Teste guiado de 7 dias',
-    summary:
-      'Plano pensado para o planejador que precisa trabalhar com dashboard, campo, prontidão, revisão de avanço e consolidação do cronograma sem depender de planilhas paralelas.',
-    includes: [
-      'Planejamento e acompanhamento das atividades',
-      'Gantt nativo e criação de cronograma do zero',
-      'RDO, dashboard, mobile completo e restrições',
-      'Recursos, curva S e visão financeira planejada',
-      'Exportação de atualizações em CSV e XML',
-      'Treinamento inicial liberado durante a assinatura'
-    ],
-    idealFor: 'Planejadores, PMOs enxutos e contratos que já exigem análise diária da execução.'
-  },
-  {
-    code: 'STANDARD_EMPRESA',
-    name: 'Standard Empresa',
-    subtitle: 'Integração operacional entre planejamento, materiais e engenharia.',
-    billing: 'Teste guiado de 7 dias',
-    summary:
-      'Plano para empresas que querem unificar planejamento, suprimentos, engenharia e campo em um mesmo ambiente operacional, reduzindo retrabalho e perda de informação.',
-    includes: [
-      'Todos os recursos do Planner Pro',
-      'Módulos de materiais e engenharia',
-      'Operação multiusuário por projeto e empresa',
-      'Controle por perfis e áreas de atuação',
-      'Treinamento contínuo liberado durante a assinatura'
-    ],
-    idealFor: 'Empresas que já querem sair do modelo disperso em planilhas e operar com mais integração entre áreas.'
-  },
-  {
-    code: 'PRO_EMPRESA',
-    name: 'Pro Empresa',
-    subtitle: 'Camada executiva e operação estruturada.',
-    billing: 'Teste guiado de 7 dias',
-    summary:
-      'Plano voltado para empresas que precisam, além da operação, consolidar governança, visibilidade executiva e disciplina de acompanhamento em múltiplos contratos ou frentes.',
-    includes: [
-      'Todos os recursos do Standard Empresa',
-      'Dashboard executivo e leitura gerencial',
-      'Operação estruturada com mais rastreabilidade',
-      'Auditoria e histórico de eventos',
-      'Apoio para expansão da rotina de uso'
-    ],
-    idealFor: 'Empresas em crescimento, contratos mais críticos e operações que precisam de leitura executiva recorrente.'
-  },
-  {
-    code: 'ENTERPRISE',
-    name: 'Enterprise',
-    subtitle: 'Implantação sob medida para operações mais complexas.',
-    billing: 'Licenciamento e serviços sob proposta comercial',
-    summary:
-      'Estrutura indicada para empresas que precisam de aderência fina ao seu modelo de gestão, com personalização, implantação assistida e integrações profundas com o ecossistema corporativo.',
-    includes: [
-      'Todos os recursos do Pro Empresa',
-      'Estrutura multiempresa',
-      'Controle avançado de permissões',
-      'Onboarding e implantação assistida',
-      'Personalizações conforme a necessidade operacional',
-      'Suporte prioritário',
-      'Escopo para integrações profundas sob orçamento'
-    ],
-    idealFor: 'Grupos empresariais, múltiplos contratos, unidades e clientes com necessidade de adaptação ao processo interno.'
-  }
-]
-
-const commercialNotes = [
-  {
-    title: 'Acesso de avaliação',
-    text: 'Solicite uma conta de avaliação para validar a rotina, os módulos e a aderência da plataforma ao seu processo antes de avançar para a implantação.'
-  },
-  {
-    title: 'Implantação guiada',
-    text: 'A Vértice apoia a leitura do cenário, a importação inicial e o primeiro ciclo de uso para que o cliente sinta valor rápido na rotina.'
-  },
-  {
-    title: 'Integrações sob orçamento',
-    text: 'Integrações com SAP, TOTVS, LMS, SSO e outras bases corporativas entram como projeto específico, com escopo técnico, cronograma e valor definidos em proposta.'
-  }
-]
-
-const trainingTracks = [
-  {
-    title: 'Onboarding inicial',
-    text: 'Primeiros acessos, estrutura da empresa, cadastro de usuários, leitura dos módulos e orientação prática de implantação.'
-  },
-  {
-    title: 'Treinamento por tela',
-    text: 'Vídeos curtos e objetivos mostrando planejamento, dashboard, campo mobile, RDO, materiais, engenharia e rotina do planejador.'
-  },
-  {
-    title: 'Biblioteca viva',
-    text: 'A trilha evolui continuamente. Novos vídeos, respostas recorrentes e boas práticas são adicionados conforme a base de clientes cresce.'
-  },
-  {
-    title: 'Apoio assistido',
-    text: 'Enquanto a assinatura estiver ativa, o cliente mantém acesso ao conteúdo e pode combinar suporte de implantação conforme o plano contratado.'
   }
 ]
 
@@ -371,24 +267,27 @@ function App() {
   return (
     <div className="site">
       <header className="topbar">
-        <div className="brand-left">
-          <img src={leanLogo} alt="Lean Planner 360" className="brand-logo small" />
-          <div>
-            <p className="brand-title">Lean Planner 360</p>
-            <p className="brand-subtitle">Industrial Planning Platform</p>
+        <div className="topbar-inner">
+          <div className="brand-left">
+            <img src={leanLogo} alt="Lean Planner 360" className="brand-logo small" />
+            <div>
+              <p className="brand-title">Lean Planner 360</p>
+              <p className="brand-subtitle">Industrial Planning Platform</p>
+            </div>
           </div>
-        </div>
 
-        <nav className="nav" aria-label="Navegação principal">
-          {navLinks.map((link) => (
-            <a key={link.label} href={link.href}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
+          <nav className="nav" aria-label="Navegação principal">
+            {navLinks.map((link) => (
+              <a key={link.label} href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-        <div className="brand-right">
-          <img src={verticeLogo} alt="Vértice Consulting" className="brand-logo vertice-mini" />
+          <div className="brand-right">
+            <img src={verticeLogo} alt="Vértice Consulting" className="brand-logo vertice-mini" />
+            <a className="btn btn-primary" href="#captura">Testar grátis</a>
+          </div>
         </div>
       </header>
 
@@ -399,19 +298,19 @@ function App() {
               <div className="hero-copy">
                 <span className="hero-badge">Teste grátis do Lean Planner 360</span>
                 <h1>
-                  Planeje obras com mais controle
+                  Planeje obras com <span className="accent">mais controle</span>
                   <br />
                   e menos retrabalho.
                 </h1>
                 <p>
-                  Centralize planejamento, materiais, engenharia e campo em uma única plataforma para antecipar gargalos
-                  antes que eles afetem prazo e custo.
+                  Centralize planejamento, materiais, engenharia, spools e campo em uma única plataforma —
+                  com uma IA que responde qualquer pergunta sobre o projeto, em segundos.
                 </p>
                 <div className="hero-actions">
                   <a className="btn btn-primary" href="#captura">
                     Solicitar teste grátis da plataforma
                   </a>
-                  <a className="btn btn-secondary" href="#video">Ver a plataforma em vídeo</a>
+                  <a className="btn btn-secondary btn-on-dark" href="#video">Ver a plataforma em vídeo</a>
                 </div>
                 <div className="hero-notes">
                   <article>
@@ -421,14 +320,68 @@ function App() {
                 </div>
               </div>
               <div className="hero-visual">
-                <img src={heroImage} alt="Equipe em obra industrial acompanhando execução no campo" />
-                <div className="hero-visual-callout hero-callout-top">
-                  <span>Prontidão</span>
-                  <strong>Descubra o gargalo antes da frente parar</strong>
+                <div className="health-mock">
+                  <div className="health-mock-head">
+                    <span>Saúde do projeto · posição atual</span>
+                    <span className="health-mock-pill">Atenção</span>
+                  </div>
+                  <div className="health-mock-score">
+                    <div className="health-ring">
+                      <div className="health-ring-inner">71</div>
+                    </div>
+                    <div className="health-mock-score-label">
+                      Nota de prazo
+                      <strong>Ponderada: avanço, marcos e vencidas</strong>
+                    </div>
+                  </div>
+                  <div className="health-mock-rows">
+                    <div className="health-mock-row">
+                      <span>Índice de prazo</span>
+                      <span className="health-mock-bar"><span style={{ width: '76%' }} /></span>
+                      <b>76%</b>
+                    </div>
+                    <div className="health-mock-row">
+                      <span>Marcos concluídos</span>
+                      <span className="health-mock-bar"><span style={{ width: '71%' }} /></span>
+                      <b>71%</b>
+                    </div>
+                    <div className="health-mock-row">
+                      <span>Avanço das vencidas</span>
+                      <span className="health-mock-bar"><span style={{ width: '60%' }} /></span>
+                      <b>60%</b>
+                    </div>
+                  </div>
+                  <div className="health-mock-curve">
+                    <svg viewBox="0 0 300 64" preserveAspectRatio="none">
+                      <polyline
+                        points="0,52 40,46 80,40 120,30 160,24 200,16 240,12 300,6"
+                        fill="none"
+                        stroke="#67d3ff"
+                        strokeWidth="2.5"
+                        strokeDasharray="5 4"
+                      />
+                      <polyline
+                        points="0,54 40,50 80,46 120,40 160,34"
+                        fill="none"
+                        stroke="#71c35a"
+                        strokeWidth="3"
+                      />
+                    </svg>
+                  </div>
                 </div>
-                <div className="hero-visual-callout hero-callout-bottom">
-                  <span>Fluxo único</span>
-                  <strong>Materiais, engenharia e campo na mesma leitura</strong>
+                <div className="health-float-chip chip-top">
+                  <span className="dot" />
+                  <div>
+                    <strong>Caminho crítico</strong>
+                    <span>Calculado a cada importação</span>
+                  </div>
+                </div>
+                <div className="health-float-chip chip-bottom">
+                  <span className="dot" />
+                  <div>
+                    <strong>Pergunte à IA</strong>
+                    <span>"Quais marcos estão atrasados?"</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -441,7 +394,7 @@ function App() {
             <h2>O problema não é falta de controle. É excesso de controles sem integração.</h2>
             <p className="lede">Quando cada área trabalha em uma planilha diferente, o gargalo aparece tarde e a obra reage em vez de antecipar.</p>
           </div>
-          <div className="hero-notes">
+          <div className="hero-notes light">
             <article>
               <strong>Visão única da prontidão</strong>
               <p>O Lean Planner 360 reúne os sinais mais importantes da execução em um painel só, sem depender de planilhas paralelas para descobrir o problema.</p>
@@ -459,14 +412,11 @@ function App() {
               </article>
             ))}
           </div>
-          <div className="pain-gallery">
+          <div className="ecosystem-grid">
             {painGallery.map((item) => (
-              <article key={item.title} className="pain-gallery-card">
-                <img src={item.image} alt={item.title} />
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
+              <article key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </article>
             ))}
           </div>
@@ -474,7 +424,7 @@ function App() {
             <p className="kicker">Por que converte</p>
             <h3>O cliente enxerga rápido o que hoje está escondido.</h3>
             <div className="differentials-grid">
-              {differentials.slice(0, 4).map((item) => (
+              {differentials.map((item) => (
                 <article key={item.title}>
                   <h4>{item.title}</h4>
                   <p>{item.text}</p>
@@ -503,6 +453,82 @@ function App() {
           </div>
         </section>
 
+        <section className="spotlight-section" id="saude">
+          <div className="section-inner">
+            <div className="spotlight-grid">
+              <div className="spotlight-copy">
+                <p className="kicker">Saúde do Projeto</p>
+                <h2>Uma nota só, direto do cronograma: o projeto está bom ou ruim?</h2>
+                <p className="lede">
+                  A cada importação do cronograma (Primavera ou MS Project), a plataforma recalcula sozinha a nota de
+                  prazo, a curva S por ramo e por área, os marcos vencidos e o caminho crítico — sem planilha paralela.
+                </p>
+                <ul className="spotlight-list">
+                  <li>Nota de prazo ponderada: avanço físico, marcos vencidos e cumprimento das atividades vencidas.</li>
+                  <li>Curva S geral, por ramo (ex. Mecânica, EIA) e por sub-área, planejado × real.</li>
+                  <li>Caminho crítico (CPM) recalculado automaticamente, com folga por atividade.</li>
+                  <li>Histórico de posições: cada importação vira um ponto novo na curva real.</li>
+                </ul>
+              </div>
+              <div className="critical-path-mock">
+                <p className="mock-head">Caminho crítico · folga em dias</p>
+                <div className="cp-row">
+                  <span className="cp-dot" />
+                  <span className="cp-name">Montagem Pipe Rack — TR01-05</span>
+                  <span className="cp-float">folga 0d</span>
+                </div>
+                <div className="cp-row">
+                  <span className="cp-dot" />
+                  <span className="cp-name">Fabricação spools — Prédio A</span>
+                  <span className="cp-float">folga 0d</span>
+                </div>
+                <div className="cp-row">
+                  <span className="cp-dot" style={{ background: '#f0b429' }} />
+                  <span className="cp-name">Liberação engenharia — ClO₂</span>
+                  <span className="cp-float">folga 2d</span>
+                </div>
+                <div className="cp-row">
+                  <span className="cp-dot" style={{ background: '#f0b429' }} />
+                  <span className="cp-name">Tanque de armazenamento #2</span>
+                  <span className="cp-float">folga 3d</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="spotlight-section" id="ia" style={{ paddingTop: 0 }}>
+          <div className="section-inner">
+            <div className="spotlight-grid reverse">
+              <div className="ai-chat-mock">
+                <div className="chat-bubble user">Quais atividades estão no caminho crítico da área 1301?</div>
+                <div className="chat-bubble ai">
+                  3 atividades críticas na 1301 — Prédio de Processo A: montagem de estruturas metálicas (folga 0d),
+                  tubulação do piso técnico (folga 0d) e teste hidrostático (folga 0d). As 3 dependem da liberação de
+                  engenharia pendente desde 12/10.
+                </div>
+                <div className="chat-bubble user">E as restrições em aberto de alto impacto?</div>
+                <div className="chat-bubble ai">2 restrições com impacto alto, ambas sem responsável definido.</div>
+              </div>
+              <div className="spotlight-copy">
+                <p className="kicker">IA do projeto</p>
+                <h2>Pergunte qualquer coisa sobre o projeto. A IA responde com dados reais.</h2>
+                <p className="lede">
+                  Nada de dashboard fixo que não responde à pergunta certa. O chat de IA lê sob demanda a saúde do
+                  projeto, o cronograma, o caminho crítico, restrições, spools, materiais e engenharia — e nunca
+                  inventa números: se não tem dado, diz que não tem.
+                </p>
+                <ul className="spotlight-list">
+                  <li>Caminho crítico, folga e dependências de qualquer atividade, por nome ou código.</li>
+                  <li>Restrições abertas, por impacto, área ou responsável.</li>
+                  <li>Spools de tubulação por etapa, materiais atrasados e documentos de engenharia pendentes.</li>
+                  <li>Acesso restrito à liderança do projeto, por workspace — cada cliente só vê os próprios dados.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="deployment-section" id="implantacao">
           <div className="section-header">
             <p className="kicker">Implantação</p>
@@ -523,7 +549,7 @@ function App() {
           </div>
         </section>
 
-        <section className="cards-section" id="plataforma">
+        <section className="cards-section" id="funcionalidades">
           {features.map((feature) => (
             <article key={feature.title} className="feature-card">
               <div className="feature-icon" aria-hidden="true">
@@ -535,7 +561,7 @@ function App() {
           ))}
         </section>
 
-        <section className="platform-section">
+        <section className="platform-section" id="plataforma">
           <div className="platform-box">
             <div className="platform-left">
               <img src={leanLogo} alt="Lean Planner 360" className="platform-logo" />
@@ -555,10 +581,10 @@ function App() {
             <div className="platform-right" aria-label="Acesso ao sistema">
               <div className="access-card">
                 <p className="access-title">Acesso ao Lean Planner 360</p>
-              <p className="access-subtitle">
+                <p className="access-subtitle">
                   Ambientes de teste e implantação são liberados por projeto, com operação stand alone,
                   integração sob medida e trilha de treinamento liberada durante o teste guiado.
-              </p>
+                </p>
                 <a className="login-button" href="#captura">Solicitar acesso de avaliação</a>
                 <a className="access-link" href="https://www.leanplanner360.com.br" target="_blank" rel="noreferrer">
                   Acessar plataforma
@@ -573,7 +599,7 @@ function App() {
             <p className="kicker">Vídeo da plataforma</p>
             <h2>Mostre a prontidão acontecendo na tela.</h2>
             <p className="lede">
-              Um vídeo curto com dashboard, materiais, engenharia e leitura de restrições costuma converter melhor do que uma explicação longa.
+              Um vídeo curto com dashboard, saúde do projeto, materiais, engenharia e leitura de restrições costuma converter melhor do que uma explicação longa.
             </p>
           </div>
           <div className="video-panel">
@@ -603,101 +629,14 @@ function App() {
               <h3>O que mostrar no vídeo</h3>
               <ul className="platform-list">
                 <li>Dashboard de prontidão e leitura do que está em risco</li>
-                <li>Materiais ligados à atividade e ao prazo</li>
-                <li>Engenharia e pendências conectadas à execução</li>
-                <li>Restrições e checklist automático por frente</li>
+                <li>Saúde do Projeto: nota de prazo, curva S e caminho crítico</li>
+                <li>Materiais e engenharia ligados à atividade e ao prazo</li>
+                <li>Chat de IA respondendo perguntas em tempo real</li>
               </ul>
               <a className="btn btn-secondary" href="#contato">Quero uma demonstração guiada</a>
             </div>
           </div>
         </section>
-
-        {/* A oferta de teste concentra a página nesta etapa; planos e integrações são tratados após o contato inicial. */}
-        {false && <section className="plans-section" id="planos">
-          <div className="section-header">
-            <p className="kicker">Planos</p>
-            <h2>Uma estrutura comercial para cada estágio da operação.</h2>
-            <p className="lede">
-              O Lean Planner 360 pode começar com o planejador individual já em operação completa e evoluir até uma implantação corporativa,
-              conectando planejamento, campo, prontidão, materiais, engenharia e gestão executiva em uma única plataforma.
-            </p>
-          </div>
-          <div className="plans-grid">
-            {plans.map((plan) => (
-              <article key={plan.name} className="plan-card">
-                <div className="plan-head">
-                  <p className="plan-name">{plan.name}</p>
-                  <h3>{plan.subtitle}</h3>
-                </div>
-                <div className="plan-billing">{plan.billing}</div>
-                <p className="plan-summary">{plan.summary}</p>
-                <div className="plan-block">
-                  <p className="plan-label">Inclui</p>
-                  <ul className="plan-list">
-                    {plan.includes.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="plan-block">
-                  <p className="plan-label">Ideal para</p>
-                  <p className="plan-ideal">{plan.idealFor}</p>
-                </div>
-                <div className="plan-actions">
-                  {plan.code === 'ENTERPRISE' ? (
-                    <>
-                      <a className="btn btn-primary" href="#contato">
-                        Solicitar proposta
-                      </a>
-                      <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
-                        Falar sobre integração
-                      </a>
-                    </>
-                  ) : (
-                    <>
-                      <a className="btn btn-primary" href="#captura">
-                        Solicitar avaliação
-                      </a>
-                      <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
-                        Agendar demonstração
-                      </a>
-                    </>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="plans-notes">
-            {commercialNotes.map((item) => (
-              <article key={item.title} className="plans-note-card">
-                <p className="plan-label">{item.title}</p>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-          <div className="plans-cta">
-            <div>
-              <p className="kicker">Teste guiado</p>
-                <h3>Solicite uma conta de avaliação e valide a rotina na prática.</h3>
-                <p>
-                A solicitação entra no fluxo de criação de conta com status aguardando liberação. Depois, a Vértice Consulting
-                apoia a primeira configuração operacional, com importação assistida e leitura orientada dos gargalos mais críticos.
-                </p>
-                <p className="plans-footnote">
-                A integração de documentos ainda não é ativada automaticamente para o novo usuário; a equipe coleta cronogramas,
-                projetos e documentos para preparar a importação inicial.
-                </p>
-              </div>
-            <div className="plans-actions">
-              <a className="btn btn-primary" href="#captura">
-                Solicitar acesso
-              </a>
-              <a className="btn btn-secondary" href={contactWhatsAppHref} target="_blank" rel="noreferrer">
-                Falar com a Vértice
-              </a>
-            </div>
-          </div>
-        </section>}
 
         <section className="checkout-panel" id="captura" aria-labelledby="trial-form-title">
           <div className="checkout-copy">
@@ -800,70 +739,27 @@ function App() {
           </form>
         </section>
 
-        {false && <section className="training-section" id="treinamento">
-          <div className="section-header">
-            <p className="kicker">Treinamento</p>
-            <h2>Uma trilha prática para acelerar a adoção da plataforma.</h2>
-            <p className="lede">
-              O acesso ao treinamento acompanha a assinatura e combina onboarding inicial, vídeos por tela e evolução contínua do conteúdo conforme a operação amadurece.
-            </p>
-          </div>
-          <div className="training-grid">
-            {trainingTracks.map((item) => (
-              <article key={item.title} className="training-card">
-                <p className="plan-label">{item.title}</p>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-          <div className="training-cta">
-            <div>
-              <h3>Você já pode solicitar uma avaliação com onboarding guiado.</h3>
-              <p>
-                O melhor caminho agora é liberar o teste, conduzir a implantação inicial e mostrar valor rápido na rotina. A biblioteca de treinamento evolui junto com os primeiros clientes.
-              </p>
-            </div>
-            <div className="plans-actions">
-              <a className="btn btn-primary" href="#captura">
-                Solicitar avaliação
-              </a>
-              <a className="btn btn-secondary" href={`mailto:${contactEmail}`}>
-                Falar sobre implantação
-              </a>
-            </div>
-          </div>
-        </section>}
-
-        {false && <section className="markets-section" id="mercados">
-          <h2>Visibilidade de ponta a ponta em projetos industriais complexos.</h2>
-          <div className="markets-grid">
-            {markets.map((market) => (
-              <span key={market} className="market-item">
-                {market}
-              </span>
-            ))}
-          </div>
-        </section>}
-
-        {false && <section className="consulting-section" id="consultoria">
-          <div className="consulting-card">
-            <div className="consulting-brand">
-              <img src={verticeLogo} alt="Vértice Consulting" className="consulting-logo" />
-              <div>
-                <h2>Vértice Consulting</h2>
-                <p>Consultoria estratégica aliada à plataforma Lean Planner 360 para estruturar rotinas, indicadores e decisões de campo.</p>
+        {false && (
+          <section className="consulting-section" id="consultoria">
+            <div className="consulting-card">
+              <div className="consulting-brand">
+                <img src={verticeLogo} alt="Vértice Consulting" className="consulting-logo" />
+                <div>
+                  <h2>Vértice Consulting</h2>
+                  <p>Consultoria estratégica aliada à plataforma Lean Planner 360 para estruturar rotinas, indicadores e decisões de campo.</p>
+                </div>
+              </div>
+              <div className="consulting-columns">
+                {consultingPillars.map((pillar) => (
+                  <article key={pillar.title}>
+                    <h3>{pillar.title}</h3>
+                    <p>{pillar.text}</p>
+                  </article>
+                ))}
               </div>
             </div>
-            <div className="consulting-columns">
-              {consultingPillars.map((pillar) => (
-                <article key={pillar.title}>
-                  <h3>{pillar.title}</h3>
-                  <p>{pillar.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>}
+          </section>
+        )}
       </main>
 
       <section className="contact-section" id="contato">
@@ -905,4 +801,3 @@ function App() {
 }
 
 export default App
-
